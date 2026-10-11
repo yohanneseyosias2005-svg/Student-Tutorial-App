@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amharic - Student Tutorial</title>
+  <style>body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#f5f9ff);color:#1f2937;margin:0;padding:24px}.page{max-width:900px;margin:0 auto;background:white;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.08);padding:30px}h1,h2{color:#174ea6}ol{line-height:1.8}.quiz-box{margin-top:20px;border:1px solid #d8e7ff;border-radius:12px;background:#f7faff;padding:20px}.quiz-progress{color:#174ea6;font-weight:bold;margin-bottom:10px}.quiz-options{display:grid;gap:12px;margin-top:12px}.quiz-option{background:#fff;border:1px solid #cfe1ff;border-radius:10px;padding:12px 14px;text-align:left;font-size:1rem;cursor:pointer;transition:all .2s ease}.quiz-option:hover{background:#edf5ff}.quiz-option:disabled{cursor:not-allowed;opacity:0.95}.quiz-option.correct{background:#dff7e8;border-color:#4caf50}.quiz-option.incorrect{background:#ffe3e3;border-color:#d32f2f}.quiz-feedback{margin-top:14px;font-weight:bold;min-height:24px}.quiz-finished{font-weight:bold;color:#174ea6}a{color:#2563eb;text-decoration:none}a:hover{text-decoration:underline}.back{display:inline-block;margin-top:20px;font-weight:bold}</style>
+</head>
+<body>
+  <div class="page">
+    <h1>Amharic</h1>
+
+    <h2>Notes</h2>
+    <p>Amharic is one of the most widely spoken languages in Ethiopia. It is used in schools, homes, government, and daily communication. Learning Amharic helps students read, write, speak, and understand their language more clearly.</p>
+    <p>In Amharic, vocabulary, grammar, reading, and speaking practice are all important. Students learn new words, understand sentence structure, and improve their ability to communicate in daily life and classroom settings.</p>
+    <ul>
+      <li>Vocabulary</li>
+      <li>Sentence practice</li>
+      <li>Reading and dialogue</li>
+      <li>Speaking and listening</li>
+    </ul>
+
+    <h2>Key concepts</h2>
+    <ul>
+      <li>Learning new words helps improve speaking and writing.</li>
+      <li>Greeting people respectfully is an important part of communication.</li>
+      <li>Simple sentences help us ask questions and share ideas clearly.</li>
+      <li>Practice with dialogue improves listening and speaking skills.</li>
+    </ul>
+
+    <h2>Worked example</h2>
+    <p>Example dialogue: “ሰላም!” “ሰላም! እንደምን ነዎት?” “እንደምን ነኝ፣ እጅግ ደህና ነኝ።” This conversation shows a greeting and a polite question about a person’s well-being.</p>
+
+    <h2>Practice questions</h2>
+    <ol>
+      <li>What does “ሰላም” mean?</li>
+      <li>What does “ቤት” mean in English?</li>
+      <li>What is the Amharic word for “teacher”?</li>
+      <li>What is the Amharic word for “water”?</li>
+      <li>What does “አመሰግናለሁ” mean?</li>
+    </ol>
+    <p><a href="index.html" class="back">Back to Home</a> | <a href="#" id="signout-link">Sign out</a></p>
+  <div id="quiz" class="quiz-box"></div>
+<script>
+(function () {
+  const questions = [{"question": "What does “ሰላም” mean?", "options": ["A. Goodbye", "B. Hello", "C. Thank you", "D. Please"], "answer": "B"}, {"question": "What does “ቤት” mean in English?", "options": ["A. River", "B. School", "C. House", "D. Book"], "answer": "C"}, {"question": "What is the Amharic word for “teacher”?", "options": ["A. መምህር", "B. ልጅ", "C. እንግዶች", "D. ትምህርት"], "answer": "A"}, {"question": "What is the Amharic word for “water”?", "options": ["A. አበባ", "B. ውሃ", "C. ቀን", "D. ሰዓት"], "answer": "B"}, {"question": "What does “አመሰግናለሁ” mean?", "options": ["A. Good morning", "B. Thank you", "C. Nice to meet you", "D. I am fine"], "answer": "B"}, {"question": "Which greeting is polite?", "options": ["A. ጠንካራ", "B. ሰላም", "C. ተስፋ", "D. ራስ"], "answer": "B"}, {"question": "Which sentence is a good question?", "options": ["A. እንደምን ነዎት?", "B. እንዴት እንደሞት?", "C. ቤት የለም", "D. ምን አደርኩ"], "answer": "A"}, {"question": "What does “ትምህርት” mean?", "options": ["A. School", "B. Education", "C. Book", "D. Food"], "answer": "B"}, {"question": "What is the Amharic word for “friend”?", "options": ["A. አዘጋጅ", "B. ጓደኛ", "C. ስራ", "D. አዳራሽ"], "answer": "B"}, {"question": "What does “እንደምን ነዎት?” mean?", "options": ["A. How are you?", "B. Where are you?", "C. Who are you?", "D. What is your name?"], "answer": "A"}, {"question": "Which word means “book”?", "options": ["A. በት", "B. መጽሐፍ", "C. ጉዳይ", "D. አይነት"], "answer": "B"}, {"question": "What does “ምግብ” mean?", "options": ["A. Water", "B. Food", "C. House", "D. Chair"], "answer": "B"}, {"question": "Which is a polite response to “ሰላም”?", "options": ["A. አበላለሁ", "B. ሰላም", "C. እግዜአለሁ", "D. እንደምን ነዎት"], "answer": "B"}, {"question": "What does “ልጅ” mean?", "options": ["A. Teacher", "B. Child", "C. Market", "D. Friend"], "answer": "B"}, {"question": "What is the Amharic word for “school”?", "options": ["A. ቤት", "B. ትምህርት ቤት", "C. ምግብ", "D. ውሃ"], "answer": "B"}, {"question": "Which word means “day”?", "options": ["A. ለሊት", "B. ቀን", "C. ውሃ", "D. እንስሳ"], "answer": "B"}, {"question": "What does “እንኳን ደህና መጡ” mean?", "options": ["A. Welcome", "B. Good night", "C. Thank you", "D. See you later"], "answer": "A"}, {"question": "What does “አዝናለሁ” mean?", "options": ["A. I am tired", "B. I am happy", "C. I am late", "D. I am sick"], "answer": "B"}, {"question": "What is the Amharic word for “mother”?", "options": ["A. አባት", "B. እናት", "C. እህት", "D. ወንድም"], "answer": "B"}, {"question": "Which word means “tree”?", "options": ["A. ወንዝ", "B. ዛፍ", "C. በሽታ", "D. መንገድ"], "answer": "B"}, {"question": "What is the Amharic word for “city”?", "options": ["A. መንደር", "B. ከተማ", "C. እግር", "D. ሰማይ"], "answer": "B"}, {"question": "What does “እረስ?” mean?", "options": ["A. Sit down", "B. Stand up", "C. Run", "D. Eat"], "answer": "A"}, {"question": "Which is the correct word for “language”?", "options": ["A. ቋንቋ", "B. ልጅ", "C. ቤት", "D. ምግብ"], "answer": "A"}, {"question": "What does “በጣም ደህና” mean?", "options": ["A. Very good", "B. Very bad", "C. Very cold", "D. Very fast"], "answer": "A"}, {"question": "What is the Amharic word for “bread”?", "options": ["A. ምግብ", "B. ዳቦ", "C. ውሃ", "D. በሽታ"], "answer": "B"}, {"question": "What does “ሰላም” mean?", "options": ["A. Goodbye", "B. Hello", "C. Thank you", "D. Please"], "answer": "B"}, {"question": "What does “ቤት” mean in English?", "options": ["A. River", "B. School", "C. House", "D. Book"], "answer": "C"}, {"question": "What is the Amharic word for “teacher”?", "options": ["A. መምህር", "B. ልጅ", "C. እንግዶች", "D. ትምህርት"], "answer": "A"}, {"question": "What is the Amharic word for “water”?", "options": ["A. አበባ", "B. ውሃ", "C. ቀን", "D. ሰዓት"], "answer": "B"}, {"question": "What does “አመሰግናለሁ” mean?", "options": ["A. Good morning", "B. Thank you", "C. Nice to meet you", "D. I am fine"], "answer": "B"}, {"question": "Which greeting is polite?", "options": ["A. ጠንካራ", "B. ሰላም", "C. ተስፋ", "D. ራስ"], "answer": "B"}, {"question": "Which sentence is a good question?", "options": ["A. እንደምን ነዎት?", "B. እንዴት እንደሞት?", "C. ቤት የለም", "D. ምን አደርኩ"], "answer": "A"}, {"question": "What does “ትምህርት” mean?", "options": ["A. School", "B. Education", "C. Book", "D. Food"], "answer": "B"}, {"question": "What is the Amharic word for “friend”?", "options": ["A. አዘጋጅ", "B. ጓደኛ", "C. ስራ", "D. አዳራሽ"], "answer": "B"}, {"question": "What does “እንደምን ነዎት?” mean?", "options": ["A. How are you?", "B. Where are you?", "C. Who are you?", "D. What is your name?"], "answer": "A"}, {"question": "Which word means “book”?", "options": ["A. በት", "B. መጽሐፍ", "C. ጉዳይ", "D. አይነት"], "answer": "B"}, {"question": "What does “ምግብ” mean?", "options": ["A. Water", "B. Food", "C. House", "D. Chair"], "answer": "B"}, {"question": "Which is a polite response to “ሰላም”?", "options": ["A. አበላለሁ", "B. ሰላም", "C. እግዜአለሁ", "D. እንደምን ነዎት"], "answer": "B"}, {"question": "What does “ልጅ” mean?", "options": ["A. Teacher", "B. Child", "C. Market", "D. Friend"], "answer": "B"}, {"question": "What is the Amharic word for “school”?", "options": ["A. ቤት", "B. ትምህርት ቤት", "C. ምግብ", "D. ውሃ"], "answer": "B"}, {"question": "Which word means “day”?", "options": ["A. ለሊት", "B. ቀን", "C. ውሃ", "D. እንስሳ"], "answer": "B"}, {"question": "What does “እንኳን ደህና መጡ” mean?", "options": ["A. Welcome", "B. Good night", "C. Thank you", "D. See you later"], "answer": "A"}, {"question": "What does “አዝናለሁ” mean?", "options": ["A. I am tired", "B. I am happy", "C. I am late", "D. I am sick"], "answer": "B"}, {"question": "What is the Amharic word for “mother”?", "options": ["A. አባት", "B. እናት", "C. እህት", "D. ወንድም"], "answer": "B"}, {"question": "Which word means “tree”?", "options": ["A. ወንዝ", "B. ዛፍ", "C. በሽታ", "D. መንገድ"], "answer": "B"}, {"question": "What is the Amharic word for “city”?", "options": ["A. መንደር", "B. ከተማ", "C. እግር", "D. ሰማይ"], "answer": "B"}, {"question": "What does “እረስ?” mean?", "options": ["A. Sit down", "B. Stand up", "C. Run", "D. Eat"], "answer": "A"}, {"question": "Which is the correct word for “language”?", "options": ["A. ቋንቋ", "B. ልጅ", "C. ቤት", "D. ምግብ"], "answer": "A"}, {"question": "What does “በጣም ደህና” mean?", "options": ["A. Very good", "B. Very bad", "C. Very cold", "D. Very fast"], "answer": "A"}, {"question": "What is the Amharic word for “bread”?", "options": ["A. ምግብ", "B. ዳቦ", "C. ውሃ", "D. በሽታ"], "answer": "B"}, {"question": "What does “ሰላም” mean?", "options": ["A. Goodbye", "B. Hello", "C. Thank you", "D. Please"], "answer": "B"}, {"question": "What does “ቤት” mean in English?", "options": ["A. River", "B. School", "C. House", "D. Book"], "answer": "C"}, {"question": "What is the Amharic word for “teacher”?", "options": ["A. መምህር", "B. ልጅ", "C. እንግዶች", "D. ትምህርት"], "answer": "A"}, {"question": "What is the Amharic word for “water”?", "options": ["A. አበባ", "B. ውሃ", "C. ቀን", "D. ሰዓት"], "answer": "B"}, {"question": "What does “አመሰግናለሁ” mean?", "options": ["A. Good morning", "B. Thank you", "C. Nice to meet you", "D. I am fine"], "answer": "B"}, {"question": "Which greeting is polite?", "options": ["A. ጠንካራ", "B. ሰላም", "C. ተስፋ", "D. ራስ"], "answer": "B"}, {"question": "Which sentence is a good question?", "options": ["A. እንደምን ነዎት?", "B. እንዴት እንደሞት?", "C. ቤት የለም", "D. ምን አደርኩ"], "answer": "A"}, {"question": "What does “ትምህርት” mean?", "options": ["A. School", "B. Education", "C. Book", "D. Food"], "answer": "B"}, {"question": "What is the Amharic word for “friend”?", "options": ["A. አዘጋጅ", "B. ጓደኛ", "C. ስራ", "D. አዳራሽ"], "answer": "B"}, {"question": "What does “እንደምን ነዎት?” mean?", "options": ["A. How are you?", "B. Where are you?", "C. Who are you?", "D. What is your name?"], "answer": "A"}, {"question": "Which word means “book”?", "options": ["A. በት", "B. መጽሐፍ", "C. ጉዳይ", "D. አይነት"], "answer": "B"}, {"question": "What does “ምግብ” mean?", "options": ["A. Water", "B. Food", "C. House", "D. Chair"], "answer": "B"}, {"question": "Which is a polite response to “ሰላም”?", "options": ["A. አበላለሁ", "B. ሰላም", "C. እግዜአለሁ", "D. እንደምን ነዎት"], "answer": "B"}, {"question": "What does “ልጅ” mean?", "options": ["A. Teacher", "B. Child", "C. Market", "D. Friend"], "answer": "B"}, {"question": "What is the Amharic word for “school”?", "options": ["A. ቤት", "B. ትምህርት ቤት", "C. ምግብ", "D. ውሃ"], "answer": "B"}, {"question": "Which word means “day”?", "options": ["A. ለሊት", "B. ቀን", "C. ውሃ", "D. እንስሳ"], "answer": "B"}, {"question": "What does “እንኳን ደህና መጡ” mean?", "options": ["A. Welcome", "B. Good night", "C. Thank you", "D. See you later"], "answer": "A"}, {"question": "What does “አዝናለሁ” mean?", "options": ["A. I am tired", "B. I am happy", "C. I am late", "D. I am sick"], "answer": "B"}, {"question": "What is the Amharic word for “mother”?", "options": ["A. አባት", "B. እናት", "C. እህት", "D. ወንድም"], "answer": "B"}, {"question": "Which word means “tree”?", "options": ["A. ወንዝ", "B. ዛፍ", "C. በሽታ", "D. መንገድ"], "answer": "B"}, {"question": "What is the Amharic word for “city”?", "options": ["A. መንደር", "B. ከተማ", "C. እግር", "D. ሰማይ"], "answer": "B"}, {"question": "What does “እረስ?” mean?", "options": ["A. Sit down", "B. Stand up", "C. Run", "D. Eat"], "answer": "A"}, {"question": "Which is the correct word for “language”?", "options": ["A. ቋንቋ", "B. ልጅ", "C. ቤት", "D. ምግብ"], "answer": "A"}, {"question": "What does “በጣም ደህና” mean?", "options": ["A. Very good", "B. Very bad", "C. Very cold", "D. Very fast"], "answer": "A"}, {"question": "What is the Amharic word for “bread”?", "options": ["A. ምግብ", "B. ዳቦ", "C. ውሃ", "D. በሽታ"], "answer": "B"}, {"question": "What does “ሰላም” mean?", "options": ["A. Goodbye", "B. Hello", "C. Thank you", "D. Please"], "answer": "B"}, {"question": "What does “ቤት” mean in English?", "options": ["A. River", "B. School", "C. House", "D. Book"], "answer": "C"}, {"question": "What is the Amharic word for “teacher”?", "options": ["A. መምህር", "B. ልጅ", "C. እንግዶች", "D. ትምህርት"], "answer": "A"}, {"question": "What is the Amharic word for “water”?", "options": ["A. አበባ", "B. ውሃ", "C. ቀን", "D. ሰዓት"], "answer": "B"}, {"question": "What does “አመሰግናለሁ” mean?", "options": ["A. Good morning", "B. Thank you", "C. Nice to meet you", "D. I am fine"], "answer": "B"}, {"question": "Which greeting is polite?", "options": ["A. ጠንካራ", "B. ሰላም", "C. ተስፋ", "D. ራስ"], "answer": "B"}, {"question": "Which sentence is a good question?", "options": ["A. እንደምን ነዎት?", "B. እንዴት እንደሞት?", "C. ቤት የለም", "D. ምን አደርኩ"], "answer": "A"}, {"question": "What does “ትምህርት” mean?", "options": ["A. School", "B. Education", "C. Book", "D. Food"], "answer": "B"}, {"question": "What is the Amharic word for “friend”?", "options": ["A. አዘጋጅ", "B. ጓደኛ", "C. ስራ", "D. አዳራሽ"], "answer": "B"}, {"question": "What does “እንደምን ነዎት?” mean?", "options": ["A. How are you?", "B. Where are you?", "C. Who are you?", "D. What is your name?"], "answer": "A"}, {"question": "Which word means “book”?", "options": ["A. በት", "B. መጽሐፍ", "C. ጉዳይ", "D. አይነት"], "answer": "B"}, {"question": "What does “ምግብ” mean?", "options": ["A. Water", "B. Food", "C. House", "D. Chair"], "answer": "B"}, {"question": "Which is a polite response to “ሰላም”?", "options": ["A. አበላለሁ", "B. ሰላም", "C. እግዜአለሁ", "D. እንደምን ነዎት"], "answer": "B"}, {"question": "What does “ልጅ” mean?", "options": ["A. Teacher", "B. Child", "C. Market", "D. Friend"], "answer": "B"}, {"question": "What is the Amharic word for “school”?", "options": ["A. ቤት", "B. ትምህርት ቤት", "C. ምግብ", "D. ውሃ"], "answer": "B"}, {"question": "Which word means “day”?", "options": ["A. ለሊት", "B. ቀን", "C. ውሃ", "D. እንስሳ"], "answer": "B"}, {"question": "What does “እንኳን ደህና መጡ” mean?", "options": ["A. Welcome", "B. Good night", "C. Thank you", "D. See you later"], "answer": "A"}, {"question": "What does “አዝናለሁ” mean?", "options": ["A. I am tired", "B. I am happy", "C. I am late", "D. I am sick"], "answer": "B"}, {"question": "What is the Amharic word for “mother”?", "options": ["A. አባት", "B. እናት", "C. እህት", "D. ወንድም"], "answer": "B"}, {"question": "Which word means “tree”?", "options": ["A. ወንዝ", "B. ዛፍ", "C. በሽታ", "D. መንገድ"], "answer": "B"}, {"question": "What is the Amharic word for “city”?", "options": ["A. መንደር", "B. ከተማ", "C. እግር", "D. ሰማይ"], "answer": "B"}, {"question": "What does “እረስ?” mean?", "options": ["A. Sit down", "B. Stand up", "C. Run", "D. Eat"], "answer": "A"}, {"question": "Which is the correct word for “language”?", "options": ["A. ቋንቋ", "B. ልጅ", "C. ቤት", "D. ምግብ"], "answer": "A"}, {"question": "What does “በጣም ደህና” mean?", "options": ["A. Very good", "B. Very bad", "C. Very cold", "D. Very fast"], "answer": "A"}, {"question": "What is the Amharic word for “bread”?", "options": ["A. ምግብ", "B. ዳቦ", "C. ውሃ", "D. በሽታ"], "answer": "B"}];
+  const quizBox = document.getElementById('quiz');
+  let currentQuestion = 0;
+
+  function renderQuestion() {
+    if (currentQuestion >= questions.length) {
+      quizBox.innerHTML = '<div class="quiz-finished">Quiz complete.</div>';
+      return;
+    }
+
+    const current = questions[currentQuestion];
+    quizBox.innerHTML = `
+      <div class="quiz-progress">Question ${currentQuestion + 1} of ${questions.length}</div>
+      <h3>${current.question}</h3>
+      <div class="quiz-options">
+        ${current.options.map((option) => `<button class="quiz-option" data-answer="${option.charAt(0)}">${option}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback"></div>
+    `;
+
+    const buttons = quizBox.querySelectorAll('.quiz-option');
+    const feedback = quizBox.querySelector('.quiz-feedback');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selected = button.dataset.answer;
+        buttons.forEach((btn) => {
+          btn.disabled = true;
+          if (btn.dataset.answer === current.answer) {
+            btn.classList.add('correct');
+          }
+          if (btn === button && selected !== current.answer) {
+            btn.classList.add('incorrect');
+          }
+        });
+
+        feedback.textContent = selected === current.answer ? 'Correct' : 'incorrect';
+        setTimeout(() => {
+          currentQuestion += 1;
+          renderQuestion();
+        }, 900);
+      });
+    });
+  }
+
+  renderQuestion();
+})();
+</script>
+<script>
+if (!localStorage.getItem('studentTutorialUser')) {
+  window.location.href = 'index.html';
+}
+const signoutLink = document.getElementById('signout-link');
+if (signoutLink) {
+  signoutLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    localStorage.removeItem('studentTutorialUser');
+    window.location.href = 'index.html';
+  });
+}
+</script>
+</body>
+</html>

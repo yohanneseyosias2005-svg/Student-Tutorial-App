@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physics - Student Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f3f7ff; color: #1d2433; margin: 0; padding: 24px; }
+    main { max-width: 900px; margin: 0 auto; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    h1, h2, h3 { color: #174ea6; }
+    p, li { line-height: 1.7; }
+    .quiz-box { margin-top: 24px; padding: 20px; border: 1px solid #d8e7ff; border-radius: 12px; background: #f7faff; }
+    .quiz-option { display: block; width: 100%; margin: 10px 0; padding: 12px; border: 1px solid #cfe1ff; border-radius: 8px; background: white; text-align: left; font-size: 1rem; cursor: pointer; }
+    .quiz-option:disabled { cursor: default; }
+    .correct { background: #dff7e8; }
+    .incorrect { background: #ffe3e3; }
+    #quiz-feedback { min-height: 24px; font-weight: bold; }
+    a { color: #2563eb; }
+    @media (max-width: 600px) { body { padding: 12px; } main { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Physics</h1>
+    <h2>Forces and motion</h2>
+    <p>Physics helps explain how objects move and interact. A force is a push or pull. An unbalanced force can change an object's speed or direction, while balanced forces do not change its motion.</p>
+    <h2>Energy</h2>
+    <p>Energy is the ability to cause change. Common forms include movement (kinetic), stored (potential), heat, light, and sound energy. Energy can change from one form to another, while the total amount is conserved in a closed system.</p>
+    <h2>Simple electric circuits</h2>
+    <p>An electric circuit is a complete path through which electric charge can flow. A simple circuit may include a source, wires, and a load such as a lamp. An open circuit has a break in its path, so current does not flow.</p>
+    <h2>Key ideas</h2>
+    <ul>
+      <li>Speed describes distance traveled per unit of time.</li>
+      <li>Friction is a force that opposes sliding between surfaces.</li>
+      <li>Electrical safety matters: never handle exposed wires or mains electricity.</li>
+    </ul>
+    <section id="quiz" class="quiz-box" aria-labelledby="quiz-title">
+      <h2 id="quiz-title">Physics Quick Quiz</h2>
+      <p id="quiz-progress" aria-live="polite"></p>
+      <h3 id="quiz-question"></h3>
+      <div id="quiz-options"></div>
+      <p id="quiz-feedback" aria-live="polite"></p>
+    </section>
+    <p><a href="index.html">Back to Home</a></p>
+  </main>
+  <script>
+    (function () {
+      const questions = [
+        { question: 'What is a force?', options: ['A push or pull', 'A type of matter', 'A unit of time', 'A form of sound'], answer: 0 },
+        { question: 'What can an unbalanced force do?', options: ["Change an object's speed or direction", 'Always stop time', 'Remove all mass', 'Turn a solid into an element'], answer: 0 },
+        { question: 'What does a complete electric circuit provide?', options: ['A path for charge to flow', 'A way to remove gravity', 'A path with no source', 'A guaranteed source of light'], answer: 0 },
+        { question: 'Which force opposes sliding between surfaces?', options: ['Friction', 'Magnetism only', 'Weightlessness', 'Sound'], answer: 0 }
+      ];
+      let currentQuestion = 0;
+      let score = 0;
+      const progress = document.getElementById('quiz-progress');
+      const question = document.getElementById('quiz-question');
+      const options = document.getElementById('quiz-options');
+      const feedback = document.getElementById('quiz-feedback');
+
+      function renderQuestion() {
+        if (currentQuestion === questions.length) {
+          progress.textContent = 'Quiz complete';
+          question.textContent = 'You scored ' + score + ' out of ' + questions.length + '.';
+          options.replaceChildren();
+          feedback.textContent = '';
+          return;
+        }
+        const item = questions[currentQuestion];
+        progress.textContent = 'Question ' + (currentQuestion + 1) + ' of ' + questions.length;
+        question.textContent = item.question;
+        feedback.textContent = '';
+        options.replaceChildren();
+        item.options.forEach(function (option, index) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'quiz-option';
+          button.textContent = option;
+          button.addEventListener('click', function () {
+            const correct = index === item.answer;
+            if (correct) score += 1;
+            button.classList.add(correct ? 'correct' : 'incorrect');
+            feedback.textContent = correct ? 'Correct!' : 'Not quite. The correct answer is: ' + item.options[item.answer];
+            options.querySelectorAll('button').forEach(function (itemButton) { itemButton.disabled = true; });
+            currentQuestion += 1;
+            window.setTimeout(renderQuestion, 900);
+          });
+          options.appendChild(button);
+        });
+      }
+      renderQuestion();
+    }());
+  </script>
+</body>
+</html>

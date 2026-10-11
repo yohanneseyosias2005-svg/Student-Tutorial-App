@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History - Student Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f3f7ff; color: #1d2433; margin: 0; padding: 24px; }
+    main { max-width: 900px; margin: 0 auto; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    h1, h2, h3 { color: #174ea6; }
+    p, li { line-height: 1.7; }
+    .quiz-box { margin-top: 24px; padding: 20px; border: 1px solid #d8e7ff; border-radius: 12px; background: #f7faff; }
+    .quiz-option { display: block; width: 100%; margin: 10px 0; padding: 12px; border: 1px solid #cfe1ff; border-radius: 8px; background: white; text-align: left; font-size: 1rem; cursor: pointer; }
+    .quiz-option:disabled { cursor: default; }
+    .correct { background: #dff7e8; }
+    .incorrect { background: #ffe3e3; }
+    #quiz-feedback { min-height: 24px; font-weight: bold; }
+    a { color: #2563eb; }
+    @media (max-width: 600px) { body { padding: 12px; } main { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>History</h1>
+    <h2>What is history?</h2>
+    <p>History is the study of people and events from the past. It helps us understand how communities and countries have changed over time, and how earlier decisions and experiences shape life today.</p>
+    <h2>Sources of historical information</h2>
+    <p>Historians learn from sources such as letters, photographs, tools, buildings, oral accounts, and written records. Comparing sources can help us understand an event more carefully and notice that accounts may differ.</p>
+    <h2>Timelines and change</h2>
+    <p>A timeline places events in chronological order. Dates and timelines help us compare events, identify patterns, and see what changed or continued over a period.</p>
+    <h2>Key ideas</h2>
+    <ul>
+      <li>History studies people, societies, and events in the past.</li>
+      <li>Primary sources come from the time being studied; other sources interpret or describe it later.</li>
+      <li>Reliable historical explanations use evidence and consider different perspectives.</li>
+    </ul>
+    <h2>Practice</h2>
+    <p>Choose an old photograph from your community. Ask who made it, when it was made, and what other evidence could help explain what it shows.</p>
+    <section id="quiz" class="quiz-box" aria-labelledby="quiz-title">
+      <h2 id="quiz-title">History Quick Quiz</h2>
+      <p id="quiz-progress" aria-live="polite"></p>
+      <h3 id="quiz-question"></h3>
+      <div id="quiz-options"></div>
+      <p id="quiz-feedback" aria-live="polite"></p>
+    </section>
+    <p><a href="index.html">Back to Home</a></p>
+  </main>
+  <script>
+    (function () {
+      const questions = [
+        { question: 'What does history study?', options: ['Future predictions only', 'People and events from the past', 'Weather today', 'Mathematical shapes'], answer: 1 },
+        { question: 'Which is an example of a historical source?', options: ['An old letter', 'A future plan', 'A guess without evidence', 'A made-up date'], answer: 0 },
+        { question: 'What does a timeline help us do?', options: ['Put events in chronological order', 'Measure temperature', 'Find directions', 'Count populations'], answer: 0 },
+        { question: 'Why compare different sources?', options: ['To avoid using evidence', 'To understand an event more carefully', 'To make all accounts identical', 'To remove dates'], answer: 1 }
+      ];
+      let currentQuestion = 0;
+      let score = 0;
+      const progress = document.getElementById('quiz-progress');
+      const question = document.getElementById('quiz-question');
+      const options = document.getElementById('quiz-options');
+      const feedback = document.getElementById('quiz-feedback');
+
+      function renderQuestion() {
+        if (currentQuestion === questions.length) {
+          progress.textContent = 'Quiz complete';
+          question.textContent = 'You scored ' + score + ' out of ' + questions.length + '.';
+          options.replaceChildren();
+          feedback.textContent = '';
+          return;
+        }
+        const item = questions[currentQuestion];
+        progress.textContent = 'Question ' + (currentQuestion + 1) + ' of ' + questions.length;
+        question.textContent = item.question;
+        feedback.textContent = '';
+        options.replaceChildren();
+        item.options.forEach(function (option, index) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'quiz-option';
+          button.textContent = option;
+          button.addEventListener('click', function () {
+            const correct = index === item.answer;
+            if (correct) score += 1;
+            button.classList.add(correct ? 'correct' : 'incorrect');
+            feedback.textContent = correct ? 'Correct!' : 'Not quite. The correct answer is: ' + item.options[item.answer];
+            options.querySelectorAll('button').forEach(function (itemButton) { itemButton.disabled = true; });
+            currentQuestion += 1;
+            window.setTimeout(renderQuestion, 900);
+          });
+          options.appendChild(button);
+        });
+      }
+      renderQuestion();
+    }());
+  </script>
+</body>
+</html>

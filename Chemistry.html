@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemistry - Student Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f3f7ff; color: #1d2433; margin: 0; padding: 24px; }
+    main { max-width: 900px; margin: 0 auto; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    h1, h2, h3 { color: #174ea6; }
+    p, li { line-height: 1.7; }
+    .quiz-box { margin-top: 24px; padding: 20px; border: 1px solid #d8e7ff; border-radius: 12px; background: #f7faff; }
+    .quiz-option { display: block; width: 100%; margin: 10px 0; padding: 12px; border: 1px solid #cfe1ff; border-radius: 8px; background: white; text-align: left; font-size: 1rem; cursor: pointer; transition: background 0.2s ease; }
+    .quiz-option:hover { background: #edf5ff; }
+    .quiz-option:disabled { cursor: not-allowed; opacity: 0.95; }
+    .quiz-option.correct { background: #dff7e8; border-color: #4caf50; }
+    .quiz-option.incorrect { background: #ffe3e3; border-color: #d32f2f; }
+    #quiz-feedback { min-height: 24px; font-weight: bold; }
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-block; font-weight: bold; }
+    @media (max-width: 600px) { body { padding: 12px; } main { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Chemistry</h1>
+    <h2>Matter and its properties</h2>
+    <p>Chemistry studies matter, the materials around us, and how they change. Matter has mass and takes up space. It commonly exists as a solid, liquid, or gas; heating and cooling can change its state.</p>
+    <h2>Elements, compounds, and mixtures</h2>
+    <p>An element is made of one kind of atom. A compound contains atoms of different elements chemically joined in a fixed proportion. A mixture contains substances together without forming a new compound, so its parts may often be separated by physical methods.</p>
+    <h2>Physical and chemical changes</h2>
+    <p>A physical change alters a material's form or state without making a new substance. A chemical change produces one or more new substances. Observations such as a lasting color change or gas formation can be clues, but should be interpreted carefully.</p>
+    <h2>Key ideas</h2>
+    <ul>
+      <li>Atoms are the small building blocks that make up elements.</li>
+      <li>Compounds have different properties from the elements that form them.</li>
+      <li>In a mixture, each substance keeps its identity.</li>
+    </ul>
+    <section id="quiz" class="quiz-box" aria-labelledby="quiz-title">
+      <h2 id="quiz-title">Chemistry Quick Quiz</h2>
+      <p id="quiz-progress" aria-live="polite"></p>
+      <h3 id="quiz-question"></h3>
+      <div id="quiz-options"></div>
+      <p id="quiz-feedback" aria-live="polite"></p>
+    </section>
+    <p><a href="index.html" class="back">Back to Home</a> | <a href="#" id="signout-link">Sign out</a></p>
+  </main>
+  <script>
+    if (!localStorage.getItem('studentTutorialUser')) {
+      window.location.href = 'index.html';
+    }
+    const signoutLink = document.getElementById('signout-link');
+    if (signoutLink) {
+      signoutLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        localStorage.removeItem('studentTutorialUser');
+        window.location.href = 'index.html';
+      });
+    }
+
+    (function () {
+      const questions = [
+        { question: 'What is matter?', options: ['Anything with mass that takes up space', 'Only liquids', 'A kind of energy with no mass', 'Only living things'], answer: 0 },
+        { question: 'What makes a compound different from a mixture?', options: ['A compound has elements chemically joined', 'A mixture is always a solid', 'A compound contains only one atom', 'A mixture is always a gas'], answer: 0 },
+        { question: 'Which is usually a physical change?', options: ['Ice melting', 'Iron rusting', 'Wood burning', 'Food spoiling'], answer: 0 },
+        { question: 'What is an element made of?', options: ['One kind of atom', 'Several mixtures', 'Only liquids', 'Different compounds loosely combined'], answer: 0 }
+      ];
+      let currentQuestion = 0;
+      let score = 0;
+      const progress = document.getElementById('quiz-progress');
+      const question = document.getElementById('quiz-question');
+      const options = document.getElementById('quiz-options');
+      const feedback = document.getElementById('quiz-feedback');
+
+      function renderQuestion() {
+        if (currentQuestion === questions.length) {
+          progress.textContent = 'Quiz complete';
+          question.textContent = 'You scored ' + score + ' out of ' + questions.length + '.';
+          options.innerHTML = '';
+          feedback.textContent = '';
+          return;
+        }
+        const item = questions[currentQuestion];
+        progress.textContent = 'Question ' + (currentQuestion + 1) + ' of ' + questions.length;
+        question.textContent = item.question;
+        feedback.textContent = '';
+        options.innerHTML = '';
+        item.options.forEach(function (option, index) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'quiz-option';
+          button.textContent = option;
+          button.addEventListener('click', function () {
+            const correct = index === item.answer;
+            if (correct) score += 1;
+            button.classList.add(correct ? 'correct' : 'incorrect');
+            feedback.textContent = correct ? 'Correct!' : 'Not quite. The correct answer is: ' + item.options[item.answer];
+            options.querySelectorAll('button').forEach(function (itemButton) { itemButton.disabled = true; });
+            currentQuestion += 1;
+            window.setTimeout(renderQuestion, 900);
+          });
+          options.appendChild(button);
+        });
+      }
+      renderQuestion();
+    }());
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English - Student Tutorial</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#f5f9ff);color:#1f2937;margin:0;padding:24px}
+    .page{max-width:900px;margin:0 auto;background:white;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.08);padding:30px}
+    h1,h2{color:#174ea6}
+    ol{line-height:1.8}
+    .quiz-box{margin-top:20px;border:1px solid #d8e7ff;border-radius:12px;background:#f7faff;padding:20px}
+    .quiz-progress{color:#174ea6;font-weight:bold;margin-bottom:10px}
+    .quiz-options{display:grid;gap:12px;margin-top:12px}
+    .quiz-option{background:#fff;border:1px solid #cfe1ff;border-radius:10px;padding:12px 14px;text-align:left;font-size:1rem;cursor:pointer;transition:all .2s ease}
+    .quiz-option:hover{background:#edf5ff}
+    .quiz-option:disabled{cursor:not-allowed;opacity:0.95}
+    .quiz-option.correct{background:#dff7e8;border-color:#4caf50}
+    .quiz-option.incorrect{background:#ffe3e3;border-color:#d32f2f}
+    .quiz-feedback{margin-top:14px;font-weight:bold;min-height:24px}
+    .quiz-finished{font-weight:bold;color:#174ea6}
+    a{color:#2563eb;text-decoration:none}a:hover{text-decoration:underline}.back{display:inline-block;margin-top:20px;font-weight:bold}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>English</h1>
+
+    <h2>Notes</h2>
+    <p>English is a very important language because it is used in reading, writing, speaking, and understanding many kinds of information. It helps students learn new ideas, communicate with others, and succeed in school and daily life. Good English skills make learning easier in many subjects.</p>
+    <p>English has grammar, vocabulary, spelling, reading, and writing. When students practice these skills, they become better at expressing ideas clearly and confidently. Learning English also helps people understand books, stories, conversations, and information from different places.</p>
+    <ul>
+      <li>Grammar</li>
+      <li>Vocabulary</li>
+      <li>Reading comprehension</li>
+      <li>Writing and speaking</li>
+    </ul>
+
+    <h2>Key concepts</h2>
+    <ul>
+      <li>A sentence must have a subject and a verb.</li>
+      <li>Nouns name a person, place, or thing.</li>
+      <li>Adjectives describe nouns.</li>
+      <li>Verbs show action or state.</li>
+    </ul>
+
+    <h2>Worked example</h2>
+    <p>Example: “The dog runs fast.” Here, “dog” is the noun, “runs” is the verb, and “fast” is an adverb that tells how the action happens. This sentence is clear and complete.</p>
+
+    <h2>Practice questions</h2>
+    <ol>
+      <li>Choose the correct sentence.</li>
+      <li>Find the noun in the sentence: “The teacher writes on the board.”</li>
+      <li>What is the opposite of “small”?</li>
+      <li>Which word is a verb: jump, chair, blue?</li>
+      <li>What is the plural of “child”?</li>
+    </ol>
+
+    <p><a href="index.html" class="back">Back to Home</a> | <a href="#" id="signout-link">Sign out</a></p>
+  </div>
+  <script>
+    if (!localStorage.getItem('studentTutorialUser')) {
+      window.location.href = 'index.html';
+    }
+    const signoutLink = document.getElementById('signout-link');
+    if (signoutLink) {
+      signoutLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        localStorage.removeItem('studentTutorialUser');
+        window.location.href = 'index.html';
+      });
+    }
+  </script>
+</body>
+</html>
+<div id="quiz" class="quiz-box"></div>
+<script>
+(function () {
+  const questions = [{"question": "Which sentence is correct?", "options": ["A. The dog run fast.", "B. The dog runs fast.", "C. The dog running fast.", "D. Dog fast runs."], "answer": "B"}, {"question": "What is the noun in: “The teacher writes on the board.”?", "options": ["A. writes", "B. teacher", "C. on", "D. board"], "answer": "B"}, {"question": "What is the opposite of “small”?", "options": ["A. tiny", "B. large", "C. short", "D. quiet"], "answer": "B"}, {"question": "Which word is a verb?", "options": ["A. jump", "B. chair", "C. blue", "D. table"], "answer": "A"}, {"question": "What is the plural of “child”?", "options": ["A. childs", "B. children", "C. childses", "D. childer"], "answer": "B"}, {"question": "A sentence must contain a ________ and a verb.", "options": ["A. noun", "B. adjective", "C. adverb", "D. pronoun"], "answer": "A"}, {"question": "Which word describes a noun?", "options": ["A. adjective", "B. verb", "C. preposition", "D. adverb"], "answer": "A"}, {"question": "Which is a proper noun?", "options": ["A. school", "B. Addis Ababa", "C. book", "D. table"], "answer": "B"}, {"question": "Choose the correct sentence.", "options": ["A. She go to school every day.", "B. She goes to school every day.", "C. She going to school every day.", "D. She gone to school every day."], "answer": "B"}, {"question": "What is the past tense of “run”?", "options": ["A. runned", "B. ran", "C. running", "D. runs"], "answer": "B"}, {"question": "Which word is an adverb?", "options": ["A. quickly", "B. table", "C. happy", "D. teacher"], "answer": "A"}, {"question": "What is the opposite of “happy”?", "options": ["A. glad", "B. cheerful", "C. sad", "D. smiling"], "answer": "C"}, {"question": "Which sentence is in the future tense?", "options": ["A. I walked home.", "B. I walk home.", "C. I will walk home.", "D. I walking home."], "answer": "C"}, {"question": "What is a synonym for “big”?", "options": ["A. tiny", "B. huge", "C. short", "D. narrow"], "answer": "B"}, {"question": "Which is a pronoun?", "options": ["A. river", "B. they", "C. happy", "D. book"], "answer": "B"}, {"question": "What is the correct punctuation at the end of a question?", "options": ["A. .", "B. !", "C. ?", "D. ,"], "answer": "C"}, {"question": "Which word is a conjunction?", "options": ["A. and", "B. tree", "C. quickly", "D. blue"], "answer": "A"}, {"question": "Which is a complete sentence?", "options": ["A. The bird singing.", "B. Birds sing in the morning.", "C. Singing birds in morning.", "D. In the morning bird."], "answer": "B"}, {"question": "What is the plural of “mouse”?", "options": ["A. mouses", "B. mousees", "C. mice", "D. mices"], "answer": "C"}, {"question": "Which word is a noun?", "options": ["A. run", "B. happy", "C. school", "D. quickly"], "answer": "C"}, {"question": "What is the correct form: “The students _______ excited.”", "options": ["A. is", "B. am", "C. are", "D. be"], "answer": "C"}, {"question": "Which word is the article?", "options": ["A. run", "B. the", "C. quickly", "D. happy"], "answer": "B"}, {"question": "Which sentence uses the correct spelling?", "options": ["A. Recieve", "B. Receive", "C. Receeve", "D. Receve"], "answer": "B"}, {"question": "What is the antonym of “strong”?", "options": ["A. weak", "B. powerful", "C. brave", "D. smart"], "answer": "A"}, {"question": "Which word is a preposition?", "options": ["A. under", "B. sing", "C. happy", "D. slowly"], "answer": "A"}, {"question": "What is the correct contraction for “do not”?", "options": ["A. don’t", "B. do’nt", "C. dont", "D. do nott"], "answer": "A"}, {"question": "Which sentence is correct?", "options": ["A. The dog run fast.", "B. The dog runs fast.", "C. The dog running fast.", "D. Dog fast runs."], "answer": "B"}, {"question": "What is the noun in: “The teacher writes on the board.”?", "options": ["A. writes", "B. teacher", "C. on", "D. board"], "answer": "B"}, {"question": "What is the opposite of “small”?", "options": ["A. tiny", "B. large", "C. short", "D. quiet"], "answer": "B"}, {"question": "Which word is a verb?", "options": ["A. jump", "B. chair", "C. blue", "D. table"], "answer": "A"}, {"question": "What is the plural of “child”?", "options": ["A. childs", "B. children", "C. childses", "D. childer"], "answer": "B"}, {"question": "A sentence must contain a ________ and a verb.", "options": ["A. noun", "B. adjective", "C. adverb", "D. pronoun"], "answer": "A"}, {"question": "Which word describes a noun?", "options": ["A. adjective", "B. verb", "C. preposition", "D. adverb"], "answer": "A"}, {"question": "Which is a proper noun?", "options": ["A. school", "B. Addis Ababa", "C. book", "D. table"], "answer": "B"}, {"question": "Choose the correct sentence.", "options": ["A. She go to school every day.", "B. She goes to school every day.", "C. She going to school every day.", "D. She gone to school every day."], "answer": "B"}, {"question": "What is the past tense of “run”?", "options": ["A. runned", "B. ran", "C. running", "D. runs"], "answer": "B"}, {"question": "Which word is an adverb?", "options": ["A. quickly", "B. table", "C. happy", "D. teacher"], "answer": "A"}, {"question": "What is the opposite of “happy”?", "options": ["A. glad", "B. cheerful", "C. sad", "D. smiling"], "answer": "C"}, {"question": "Which sentence is in the future tense?", "options": ["A. I walked home.", "B. I walk home.", "C. I will walk home.", "D. I walking home."], "answer": "C"}, {"question": "What is a synonym for “big”?", "options": ["A. tiny", "B. huge", "C. short", "D. narrow"], "answer": "B"}, {"question": "Which is a pronoun?", "options": ["A. river", "B. they", "C. happy", "D. book"], "answer": "B"}, {"question": "What is the correct punctuation at the end of a question?", "options": ["A. .", "B. !", "C. ?", "D. ,"], "answer": "C"}, {"question": "Which word is a conjunction?", "options": ["A. and", "B. tree", "C. quickly", "D. blue"], "answer": "A"}, {"question": "Which is a complete sentence?", "options": ["A. The bird singing.", "B. Birds sing in the morning.", "C. Singing birds in morning.", "D. In the morning bird."], "answer": "B"}, {"question": "What is the plural of “mouse”?", "options": ["A. mouses", "B. mousees", "C. mice", "D. mices"], "answer": "C"}, {"question": "Which word is a noun?", "options": ["A. run", "B. happy", "C. school", "D. quickly"], "answer": "C"}, {"question": "What is the correct form: “The students _______ excited.”", "options": ["A. is", "B. am", "C. are", "D. be"], "answer": "C"}, {"question": "Which word is the article?", "options": ["A. run", "B. the", "C. quickly", "D. happy"], "answer": "B"}, {"question": "Which sentence uses the correct spelling?", "options": ["A. Recieve", "B. Receive", "C. Receeve", "D. Receve"], "answer": "B"}, {"question": "What is the antonym of “strong”?", "options": ["A. weak", "B. powerful", "C. brave", "D. smart"], "answer": "A"}, {"question": "Which word is a preposition?", "options": ["A. under", "B. sing", "C. happy", "D. slowly"], "answer": "A"}, {"question": "What is the correct contraction for “do not”?", "options": ["A. don’t", "B. do’nt", "C. dont", "D. do nott"], "answer": "A"}, {"question": "Which sentence is correct?", "options": ["A. The dog run fast.", "B. The dog runs fast.", "C. The dog running fast.", "D. Dog fast runs."], "answer": "B"}, {"question": "What is the noun in: “The teacher writes on the board.”?", "options": ["A. writes", "B. teacher", "C. on", "D. board"], "answer": "B"}, {"question": "What is the opposite of “small”?", "options": ["A. tiny", "B. large", "C. short", "D. quiet"], "answer": "B"}, {"question": "Which word is a verb?", "options": ["A. jump", "B. chair", "C. blue", "D. table"], "answer": "A"}, {"question": "What is the plural of “child”?", "options": ["A. childs", "B. children", "C. childses", "D. childer"], "answer": "B"}, {"question": "A sentence must contain a ________ and a verb.", "options": ["A. noun", "B. adjective", "C. adverb", "D. pronoun"], "answer": "A"}, {"question": "Which word describes a noun?", "options": ["A. adjective", "B. verb", "C. preposition", "D. adverb"], "answer": "A"}, {"question": "Which is a proper noun?", "options": ["A. school", "B. Addis Ababa", "C. book", "D. table"], "answer": "B"}, {"question": "Choose the correct sentence.", "options": ["A. She go to school every day.", "B. She goes to school every day.", "C. She going to school every day.", "D. She gone to school every day."], "answer": "B"}, {"question": "What is the past tense of “run”?", "options": ["A. runned", "B. ran", "C. running", "D. runs"], "answer": "B"}, {"question": "Which word is an adverb?", "options": ["A. quickly", "B. table", "C. happy", "D. teacher"], "answer": "A"}, {"question": "What is the opposite of “happy”?", "options": ["A. glad", "B. cheerful", "C. sad", "D. smiling"], "answer": "C"}, {"question": "Which sentence is in the future tense?", "options": ["A. I walked home.", "B. I walk home.", "C. I will walk home.", "D. I walking home."], "answer": "C"}, {"question": "What is a synonym for “big”?", "options": ["A. tiny", "B. huge", "C. short", "D. narrow"], "answer": "B"}, {"question": "Which is a pronoun?", "options": ["A. river", "B. they", "C. happy", "D. book"], "answer": "B"}, {"question": "What is the correct punctuation at the end of a question?", "options": ["A. .", "B. !", "C. ?", "D. ,"], "answer": "C"}, {"question": "Which word is a conjunction?", "options": ["A. and", "B. tree", "C. quickly", "D. blue"], "answer": "A"}, {"question": "Which is a complete sentence?", "options": ["A. The bird singing.", "B. Birds sing in the morning.", "C. Singing birds in morning.", "D. In the morning bird."], "answer": "B"}, {"question": "What is the plural of “mouse”?", "options": ["A. mouses", "B. mousees", "C. mice", "D. mices"], "answer": "C"}, {"question": "Which word is a noun?", "options": ["A. run", "B. happy", "C. school", "D. quickly"], "answer": "C"}, {"question": "What is the correct form: “The students _______ excited.”", "options": ["A. is", "B. am", "C. are", "D. be"], "answer": "C"}, {"question": "Which word is the article?", "options": ["A. run", "B. the", "C. quickly", "D. happy"], "answer": "B"}, {"question": "Which sentence uses the correct spelling?", "options": ["A. Recieve", "B. Receive", "C. Receeve", "D. Receve"], "answer": "B"}, {"question": "What is the antonym of “strong”?", "options": ["A. weak", "B. powerful", "C. brave", "D. smart"], "answer": "A"}, {"question": "Which word is a preposition?", "options": ["A. under", "B. sing", "C. happy", "D. slowly"], "answer": "A"}, {"question": "What is the correct contraction for “do not”?", "options": ["A. don’t", "B. do’nt", "C. dont", "D. do nott"], "answer": "A"}, {"question": "Which sentence is correct?", "options": ["A. The dog run fast.", "B. The dog runs fast.", "C. The dog running fast.", "D. Dog fast runs."], "answer": "B"}, {"question": "What is the noun in: “The teacher writes on the board.”?", "options": ["A. writes", "B. teacher", "C. on", "D. board"], "answer": "B"}, {"question": "What is the opposite of “small”?", "options": ["A. tiny", "B. large", "C. short", "D. quiet"], "answer": "B"}, {"question": "Which word is a verb?", "options": ["A. jump", "B. chair", "C. blue", "D. table"], "answer": "A"}, {"question": "What is the plural of “child”?", "options": ["A. childs", "B. children", "C. childses", "D. childer"], "answer": "B"}, {"question": "A sentence must contain a ________ and a verb.", "options": ["A. noun", "B. adjective", "C. adverb", "D. pronoun"], "answer": "A"}, {"question": "Which word describes a noun?", "options": ["A. adjective", "B. verb", "C. preposition", "D. adverb"], "answer": "A"}, {"question": "Which is a proper noun?", "options": ["A. school", "B. Addis Ababa", "C. book", "D. table"], "answer": "B"}, {"question": "Choose the correct sentence.", "options": ["A. She go to school every day.", "B. She goes to school every day.", "C. She going to school every day.", "D. She gone to school every day."], "answer": "B"}, {"question": "What is the past tense of “run”?", "options": ["A. runned", "B. ran", "C. running", "D. runs"], "answer": "B"}, {"question": "Which word is an adverb?", "options": ["A. quickly", "B. table", "C. happy", "D. teacher"], "answer": "A"}, {"question": "What is the opposite of “happy”?", "options": ["A. glad", "B. cheerful", "C. sad", "D. smiling"], "answer": "C"}, {"question": "Which sentence is in the future tense?", "options": ["A. I walked home.", "B. I walk home.", "C. I will walk home.", "D. I walking home."], "answer": "C"}, {"question": "What is a synonym for “big”?", "options": ["A. tiny", "B. huge", "C. short", "D. narrow"], "answer": "B"}, {"question": "Which is a pronoun?", "options": ["A. river", "B. they", "C. happy", "D. book"], "answer": "B"}, {"question": "What is the correct punctuation at the end of a question?", "options": ["A. .", "B. !", "C. ?", "D. ,"], "answer": "C"}, {"question": "Which word is a conjunction?", "options": ["A. and", "B. tree", "C. quickly", "D. blue"], "answer": "A"}, {"question": "Which is a complete sentence?", "options": ["A. The bird singing.", "B. Birds sing in the morning.", "C. Singing birds in morning.", "D. In the morning bird."], "answer": "B"}, {"question": "What is the plural of “mouse”?", "options": ["A. mouses", "B. mousees", "C. mice", "D. mices"], "answer": "C"}, {"question": "Which word is a noun?", "options": ["A. run", "B. happy", "C. school", "D. quickly"], "answer": "C"}, {"question": "What is the correct form: “The students _______ excited.”", "options": ["A. is", "B. am", "C. are", "D. be"], "answer": "C"}, {"question": "Which word is the article?", "options": ["A. run", "B. the", "C. quickly", "D. happy"], "answer": "B"}];
+  const quizBox = document.getElementById('quiz');
+  let currentQuestion = 0;
+
+  function renderQuestion() {
+    if (currentQuestion >= questions.length) {
+      quizBox.innerHTML = '<div class="quiz-finished">Quiz complete.</div>';
+      return;
+    }
+
+    const current = questions[currentQuestion];
+    quizBox.innerHTML = `
+      <div class="quiz-progress">Question ${currentQuestion + 1} of ${questions.length}</div>
+      <h3>${current.question}</h3>
+      <div class="quiz-options">
+        ${current.options.map((option) => `<button class="quiz-option" data-answer="${option.charAt(0)}">${option}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback"></div>
+    `;
+
+    const buttons = quizBox.querySelectorAll('.quiz-option');
+    const feedback = quizBox.querySelector('.quiz-feedback');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selected = button.dataset.answer;
+        buttons.forEach((btn) => {
+          btn.disabled = true;
+          if (btn.dataset.answer === current.answer) {
+            btn.classList.add('correct');
+          }
+          if (btn === button && selected !== current.answer) {
+            btn.classList.add('incorrect');
+          }
+        });
+
+        feedback.textContent = selected === current.answer ? 'Correct' : 'incorrect';
+        setTimeout(() => {
+          currentQuestion += 1;
+          renderQuestion();
+        }, 900);
+      });
+    });
+  }
+
+  renderQuestion();
+})();
+</script>
+<script>
+if (!localStorage.getItem('studentTutorialUser')) {
+  window.location.href = 'index.html';
+}
+const signoutLink = document.getElementById('signout-link');
+if (signoutLink) {
+  signoutLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    localStorage.removeItem('studentTutorialUser');
+    window.location.href = 'index.html';
+  });
+}
+</script>

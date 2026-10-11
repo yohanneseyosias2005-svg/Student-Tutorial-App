@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="pageTitle">Student Tutorial App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f3f7ff;
+      color: #1d2433;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .language-picker {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: #174ea6;
+      font-weight: bold;
+    }
+
+    .language-picker select {
+      max-width: 220px;
+      padding: 9px 12px;
+      border: 1px solid #cfe1ff;
+      border-radius: 8px;
+      background: white;
+      color: #1d2433;
+      font-size: 1rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2a6df6, #4db5ff);
+      color: white;
+      padding: 28px 24px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2.3rem;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 1.05rem;
+      opacity: 0.9;
+    }
+
+    .subjects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .subject {
+      background: white;
+      border-radius: 12px;
+      padding: 22px 18px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(26, 77, 153, 0.08);
+      transition: transform 0.2s ease;
+    }
+
+    .subject:hover {
+      transform: translateY(-4px);
+    }
+
+    .subject a {
+      text-decoration: none;
+      color: #1b5bd8;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .login-box {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(26, 77, 153, 0.08);
+      margin-top: 24px;
+      max-width: 420px;
+    }
+
+    .login-box input,
+    .login-box select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #cfe1ff;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .phone-note {
+      color: #47628d;
+      font-size: 0.9rem;
+      margin: 8px 0 0;
+    }
+
+    .login-box button {
+      background: #2a6df6;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    .forgot-password {
+      display: block;
+      margin-top: 12px;
+      text-align: center;
+      color: #174ea6;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .welcome {
+      margin-top: 18px;
+      font-weight: bold;
+      color: #174ea6;
+    }
+
+    .signout {
+      display: inline-block;
+      margin-top: 16px;
+      color: #174ea6;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .dashboard-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+    .dashboard-nav button,
+    .action-button {
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 16px;
+      background: #2a6df6;
+      color: white;
+      font-size: 0.95rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .dashboard-nav button[aria-pressed="true"] {
+      background: #174ea6;
+    }
+
+    .dashboard-section {
+      margin-top: 24px;
+    }
+
+    .notice {
+      margin: 16px 0;
+      padding: 14px 16px;
+      border: 1px solid #f0d18a;
+      border-radius: 8px;
+      background: #fff8e6;
+      color: #674c08;
+      line-height: 1.5;
+    }
+
+    .notice a {
+      color: inherit;
+      font-weight: bold;
+    }
+
+    .teacher-card,
+    .lesson-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 18px rgba(26, 77, 153, 0.08);
+    }
+
+    .teacher-card h3,
+    .lesson-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .teacher-card p,
+    .lesson-card p {
+      line-height: 1.5;
+    }
+
+    .teacher-card .action-button,
+    .lesson-card .action-button {
+      width: 100%;
+    }
+
+    .field-label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+    }
+
+    .dashboard-section select,
+    .dashboard-section input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #cfe1ff;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .booking-form {
+      max-width: 480px;
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #cfe1ff;
+      border-radius: 12px;
+      background: white;
+    }
+
+    .lesson-card {
+      margin: 14px 0;
+    }
+
+    .lesson-card .action-button {
+      margin-top: 8px;
+    }
+
+    .muted {
+      color: #536581;
+    }
+
+    .classroom {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+      gap: 18px;
+      align-items: stretch;
+      border-radius: 12px;
+    }
+
+    #classroom[hidden] {
+      display: none;
+    }
+
+    .classroom-lesson,
+    .classroom-chat {
+      min-width: 0;
+      padding: 20px;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 6px 18px rgba(26, 77, 153, 0.08);
+    }
+
+    .classroom-lesson h3 {
+      margin-top: 0;
+    }
+
+    .classroom-chat {
+      display: flex;
+      flex-direction: column;
+      min-height: 560px;
+      padding: 0;
+      overflow: hidden;
+      background: #f3f7ff;
+    }
+
+    .chat-header {
+      padding: 16px;
+      background: #174ea6;
+      color: white;
+    }
+
+    .chat-header h3 {
+      margin: 0 0 4px;
+    }
+
+    .chat-header p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .chat-role-picker {
+      padding: 12px 14px 0;
+      background: #f3f7ff;
+    }
+
+    .chat-role-picker .field-label {
+      margin-top: 0;
+    }
+
+    .chat-role-picker select {
+      margin-bottom: 0;
+    }
+
+    .chat-messages {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 10px;
+      min-height: 280px;
+      max-height: 480px;
+      overflow-y: auto;
+      margin: 0;
+      padding: 14px;
+    }
+
+    .chat-message {
+      max-width: 85%;
+      padding: 10px 12px;
+      border-radius: 12px 12px 12px 3px;
+      background: white;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      overflow-wrap: anywhere;
+    }
+
+    .chat-message--self {
+      align-self: flex-end;
+      border-radius: 12px 12px 3px 12px;
+      background: #d9fdd3;
+    }
+
+    .chat-message strong,
+    .chat-message time {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.85rem;
+    }
+
+    .chat-message time,
+    .chat-empty {
+      color: #536581;
+    }
+
+    .chat-form {
+      display: flex;
+      gap: 10px;
+      padding: 12px;
+      border-top: 1px solid #d8e5f7;
+      background: white;
+    }
+
+    .chat-form input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #cfe1ff;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .chat-role-picker select {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #cfe1ff;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .chat-form .action-button {
+      flex: 0 0 auto;
+    }
+
+    .video-preview {
+      width: 100%;
+      max-height: 400px;
+      margin-top: 12px;
+      border-radius: 8px;
+      background: #172033;
+    }
+
+    .camera-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .chat-form .action-button:disabled,
+    .camera-controls .action-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        margin: 16px auto;
+        padding: 16px;
+      }
+
+      header {
+        padding: 22px 18px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .classroom {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .classroom-chat {
+        min-height: 480px;
+      }
+
+      .chat-form {
+        flex-direction: column;
+      }
+
+      .chat-form .action-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="language-picker">
+      <label for="language-select" data-i18n="languageLabel">Language</label>
+      <select id="language-select" aria-label="Language" data-i18n-aria-label="languageLabel">
+        <option value="en">English</option>
+        <option value="am">አማርኛ</option>
+        <option value="om">Afaan Oromoo</option>
+        <option value="ti">ትግርኛ</option>
+      </select>
+    </div>
+    <header>
+      <h1>Student Tutorial App</h1>
+      <p class="subtitle" data-i18n="subtitle">Find a tutor, book lessons, and continue learning across your subjects.</p>
+    </header>
+
+    <div id="login-form" class="login-box">
+      <h2 data-i18n="signIn">Sign in</h2>
+      <input id="student-email" type="email" placeholder="Enter your email" data-i18n-placeholder="emailPlaceholder">
+      <input id="student-password" type="password" placeholder="Enter your password" data-i18n-placeholder="passwordPlaceholder">
+      <label class="field-label" for="login-role" data-i18n="accountType">Account type</label>
+      <select id="login-role">
+        <option value="student" data-i18n="loginAsStudent">Student</option>
+        <option value="teacher" data-i18n="loginAsTeacher">Teacher</option>
+        <option value="admin" data-i18n="loginAsAdmin">Admin (local demo)</option>
+      </select>
+      <div id="phone-login-fields">
+        <input id="student-phone" type="tel" placeholder="Enter your phone number" data-i18n-placeholder="phonePlaceholder">
+        <p class="phone-note" data-i18n="smsNote">Continue opens your messaging app with a welcome text. Review and send it there; this page cannot send SMS by itself.</p>
+      </div>
+      <button id="sign-in-btn" data-i18n="signIn">Sign In</button>
+      <p class="phone-note" data-i18n="localLoginNote">Local demo only: passwords are not checked, and accounts are stored only in this browser.</p>
+      <a href="#" class="forgot-password" id="forgot-password-btn" data-i18n="forgotPassword">Forgot password?</a>
+    </div>
+
+    <div id="app-content" style="display:none;">
+      <div class="welcome" id="welcome-message"></div>
+      <a href="#" class="signout" id="signout-btn" data-i18n="signOut">Sign out</a>
+
+      <div class="notice" role="status">
+        <strong data-i18n="paymentsTitle">Payments are not enabled yet.</strong> <span data-i18n="paymentsNotice">CBE and Telebirr checkout and teacher payouts require approved provider integration. This page will not collect or mark any lesson as paid.</span>
+      </div>
+      <p>የመድረኩ ባለቤት እኔ ነኝ።</p>
+      <p>የCBE አካውንት ቁጥር፡ 1000416579548</p>
+      <p>ስልክ ቁጥር፡ <a href="tel:0918769500">0918769500</a></p>
+
+      <nav class="dashboard-nav" aria-label="Tutorial platform" data-i18n-aria-label="platformNav">
+        <button type="button" data-view="find" aria-pressed="false" data-roles="student" data-i18n="findTutor">Find a tutor</button>
+        <button type="button" data-view="student" aria-pressed="false" data-roles="student" data-i18n="myLessons">My lessons</button>
+        <button type="button" data-view="teacher" aria-pressed="false" data-roles="teacher" data-i18n="teacherDashboard">Teacher dashboard</button>
+        <button type="button" data-view="classroom" aria-pressed="false" data-roles="student,teacher" data-i18n="onlineClassroom">Online classroom</button>
+        <button type="button" data-view="admin" aria-pressed="false" data-roles="admin" data-i18n="accountManagement">Account management</button>
+      </nav>
+
+      <section id="find-section" class="dashboard-section">
+        <div class="notice">
+          <strong data-i18n="readyToLearn">Ready to start learning?</strong> <span data-i18n="addStudentIntro">Add a student, then choose their grade and subject to find a tutor.</span>
+          <button class="action-button" id="add-student-btn" type="button" data-i18n="addStudent">Add Student</button>
+        </div>
+        <form id="student-form" class="booking-form" hidden>
+          <h2 data-i18n="addStudent">Add Student</h2>
+          <label class="field-label" for="student-grade" data-i18n="gradeLevel">Grade / class level</label>
+          <select id="student-grade" required>
+            <option value="" data-i18n="selectGrade">Select grade or class level</option>
+            <option value="Grade 9" data-i18n="grade9">Grade 9</option>
+            <option value="Grade 10" data-i18n="grade10">Grade 10</option>
+            <option value="Grade 11" data-i18n="grade11">Grade 11</option>
+            <option value="Grade 12" data-i18n="grade12">Grade 12</option>
+          </select>
+          <label class="field-label" for="student-subject" data-i18n="subjectToStudy">Subject to study</label>
+          <select id="student-subject" required disabled>
+            <option value="" data-i18n="selectSubject">Select a subject</option>
+            <option value="Mathematics" data-i18n="subjectMathematics">Mathematics</option>
+            <option value="Citizenship" data-i18n="subjectCitizenship">Citizenship</option>
+            <option value="Amharic" data-i18n="subjectAmharic">Amharic</option>
+            <option value="English" data-i18n="subjectEnglish">English</option>
+            <option value="History" data-i18n="subjectHistory">History</option>
+            <option value="Geography" data-i18n="subjectGeography">Geography</option>
+            <option value="Economics" data-i18n="subjectEconomics">Economics</option>
+            <option value="Chemistry" data-i18n="subjectChemistry">Chemistry</option>
+            <option value="Physics" data-i18n="subjectPhysics">Physics</option>
+            <option value="Biology" data-i18n="subjectBiology">Biology</option>
+          </select>
+          <button class="action-button" type="submit" data-i18n="saveStudent">Save Student and Find Tutors</button>
+        </form>
+        <p id="student-profile-summary" class="muted" hidden></p>
+        <h2 data-i18n="findTutor">Find a tutor</h2>
+        <p class="muted" data-i18n="tutorInstruction">Choose a subject and request a lesson. Tutors must accept before the lesson is confirmed.</p>
+        <p><strong data-i18n="lessonPricing">Student price: 2,000 ETB per session. Teacher earns 1,700 ETB per completed session.</strong> <span data-i18n="paymentsUnavailable">Payment and payouts are not currently available.</span></p>
+        <p class="muted" data-i18n="exampleTutorNote">Example tutor profiles for this browser-only preview. Tutors are filtered by subject, and the selected grade is included with the lesson request.</p>
+        <div id="teacher-list" class="subjects"></div>
+
+        <form id="booking-form" class="booking-form" hidden>
+          <h3><span data-i18n="requestLessonWith">Request a lesson with</span> <span id="selected-teacher-name"></span></h3>
+          <p id="selected-teacher-subject" class="muted"></p>
+          <label class="field-label" for="lesson-subject" data-i18n="subject">Subject</label>
+          <select id="lesson-subject" required></select>
+          <label class="field-label" for="lesson-time" data-i18n="preferredLessonTime">Preferred lesson time</label>
+          <input id="lesson-time" type="datetime-local" required>
+          <button class="action-button" type="submit" data-i18n="sendLessonRequest">Send lesson request</button>
+          <button class="action-button" id="cancel-booking" type="button" style="background:#65758b;" data-i18n="cancel">Cancel</button>
+        </form>
+      </section>
+
+      <section id="student-section" class="dashboard-section" hidden>
+        <h2 data-i18n="myLessons">My lessons</h2>
+        <div id="student-lessons"></div>
+      </section>
+
+      <section id="teacher-section" class="dashboard-section" hidden>
+        <h2 data-i18n="teacherDashboard">Teacher dashboard</h2>
+        <p class="muted" data-i18n="teacherPreviewNote">Preview only: requests are stored in this browser and are not shared with real tutors.</p>
+        <p><strong data-i18n="teacherEarnings">Teacher earnings: 1,700 ETB per completed lesson.</strong> <span data-i18n="payoutsUnavailable">Payouts are unavailable until CBE and Telebirr integration is configured.</span></p>
+        <div id="teacher-lessons"></div>
+      </section>
+
+      <section id="admin-section" class="dashboard-section" hidden>
+        <h2 data-i18n="accountManagement">Account management</h2>
+        <div class="notice">
+          <strong data-i18n="localAdminOnly">Local demo admin only.</strong>
+          <span data-i18n="localAdminNotice">Accounts are stored in this browser. This is not secure authentication and does not create accounts on a server.</span>
+        </div>
+        <form id="account-form" class="booking-form">
+          <h3 id="account-form-title" data-i18n="addAccount">Add account</h3>
+          <label class="field-label" for="account-name" data-i18n="accountName">Name</label>
+          <input id="account-name" type="text" maxlength="100" required>
+          <label class="field-label" for="account-email" data-i18n="accountEmail">Email</label>
+          <input id="account-email" type="email" maxlength="254" required>
+          <label class="field-label" for="account-role" data-i18n="accountType">Account type</label>
+          <select id="account-role" required>
+            <option value="student" data-i18n="student">Student</option>
+            <option value="teacher" data-i18n="teacher">Teacher</option>
+          </select>
+          <div id="managed-student-fields">
+            <label class="field-label" for="account-grade" data-i18n="gradeLevel">Grade / class level</label>
+            <select id="account-grade">
+              <option value="" data-i18n="selectGrade">Select grade or class level</option>
+              <option value="Grade 9" data-i18n="grade9">Grade 9</option>
+              <option value="Grade 10" data-i18n="grade10">Grade 10</option>
+              <option value="Grade 11" data-i18n="grade11">Grade 11</option>
+              <option value="Grade 12" data-i18n="grade12">Grade 12</option>
+            </select>
+          </div>
+          <label id="account-subject-label" class="field-label" for="account-subject" data-i18n="subject">Subject</label>
+          <select id="account-subject" required>
+            <option value="" data-i18n="selectSubject">Select a subject</option>
+            <option value="Mathematics" data-i18n="subjectMathematics">Mathematics</option>
+            <option value="Citizenship" data-i18n="subjectCitizenship">Citizenship</option>
+            <option value="Amharic" data-i18n="subjectAmharic">Amharic</option>
+            <option value="English" data-i18n="subjectEnglish">English</option>
+            <option value="History" data-i18n="subjectHistory">History</option>
+            <option value="Geography" data-i18n="subjectGeography">Geography</option>
+            <option value="Economics" data-i18n="subjectEconomics">Economics</option>
+            <option value="Chemistry" data-i18n="subjectChemistry">Chemistry</option>
+            <option value="Physics" data-i18n="subjectPhysics">Physics</option>
+            <option value="Biology" data-i18n="subjectBiology">Biology</option>
+          </select>
+          <button id="save-account-btn" class="action-button" type="submit" data-i18n="saveAccount">Save account</button>
+          <button id="cancel-account-edit-btn" class="action-button" type="button" style="background:#65758b;" hidden data-i18n="cancel">Cancel</button>
+        </form>
+        <div id="managed-accounts"></div>
+      </section>
+
+      <section id="classroom-section" class="dashboard-section" hidden>
+        <h2 data-i18n="onlineClassroom">Online classroom</h2>
+        <div class="notice">
+          <strong data-i18n="localDemo">Local demo only.</strong> <span data-i18n="classroomDemoNote">Chat is saved in this browser and is not shared with another device. Camera preview does not transmit video or audio; real-time chat and two-person calls need a shared backend and WebRTC signaling.</span>
+        </div>
+        <div id="classroom" class="classroom" hidden>
+          <div class="classroom-lesson">
+            <h3 id="classroom-title"></h3>
+            <h3 data-i18n="videoPreview">Video call preview</h3>
+            <video id="camera-preview" class="video-preview" autoplay muted playsinline hidden></video>
+            <div class="camera-controls">
+              <button id="start-camera-btn" class="action-button" type="button" data-i18n="startCamera">Start camera preview</button>
+              <button id="stop-camera-btn" class="action-button" type="button" style="background:#65758b;" disabled data-i18n="stopCamera">Stop camera</button>
+            </div>
+            <p id="camera-status" class="muted" role="status" data-i18n="cameraOff">Your camera is off. Camera preview is local only and is not sent to the tutor.</p>
+          </div>
+          <aside class="classroom-chat" aria-label="Lesson chat" data-i18n-aria-label="lessonChat">
+            <header class="chat-header">
+              <h3 data-i18n="lessonChat">Lesson chat</h3>
+              <p id="chat-participant"></p>
+            </header>
+            <div class="chat-role-picker">
+              <label class="field-label" for="chat-role" data-i18n="previewChatAs">Preview chat as</label>
+              <select id="chat-role">
+                <option value="student" data-i18n="student">Student</option>
+                <option value="teacher" data-i18n="teacher">Teacher</option>
+              </select>
+            </div>
+            <div id="chat-messages" class="chat-messages" role="log" aria-live="polite"></div>
+            <form id="chat-form" class="chat-form">
+              <input id="chat-input" type="text" maxlength="1000" placeholder="Message..." aria-label="Write a chat message" data-i18n-placeholder="messagePlaceholder" data-i18n-aria-label="writeChatMessage" required>
+              <button class="action-button" type="submit" data-i18n="send">Send</button>
+            </form>
+          </aside>
+        </div>
+        <p id="classroom-empty" class="muted" data-i18n="classroomEmpty">Open an accepted lesson from My lessons or the Teacher dashboard to enter its classroom.</p>
+      </section>
+
+      <section id="learning-materials-section" class="dashboard-section">
+        <h2 data-i18n="learningMaterials">Learning materials</h2>
+        <div class="subjects">
+          <div class="subject"><a href="Mathematics.html" data-i18n="subjectMathematics">Mathematics</a></div>
+          <div class="subject"><a href="Citizenship.html" data-i18n="subjectCitizenship">Citizenship</a></div>
+          <div class="subject"><a href="Amharic.html" data-i18n="subjectAmharic">Amharic</a></div>
+          <div class="subject"><a href="English.html" data-i18n="subjectEnglish">English</a></div>
+          <div class="subject"><a href="History.html" data-i18n="subjectHistory">History</a></div>
+          <div class="subject"><a href="Geography.html" data-i18n="subjectGeography">Geography</a></div>
+          <div class="subject"><a href="Economics.html" data-i18n="subjectEconomics">Economics</a></div>
+          <div class="subject"><a href="Chemistry.html" data-i18n="subjectChemistry">Chemistry</a></div>
+          <div class="subject"><a href="Physics.html" data-i18n="subjectPhysics">Physics</a></div>
+          <div class="subject"><a href="Biology.html" data-i18n="subjectBiology">Biology</a></div>
+        </div>
+        <h3 data-i18n="quickQuiz">Quick Quiz</h3>
+        <div class="subjects">
+          <div class="subject"><a href="Mathematics.html#quiz"><span data-i18n="subjectMathematics">Mathematics</span> <span data-i18n="quiz">Quiz</span></a></div>
+          <div class="subject"><a href="Citizenship.html#quiz"><span data-i18n="subjectCitizenship">Citizenship</span> <span data-i18n="quiz">Quiz</span></a></div>
+          <div class="subject"><a href="Amharic.html#quiz"><span data-i18n="subjectAmharic">Amharic</span> <span data-i18n="quiz">Quiz</span></a></div>
+          <div class="subject"><a href="English.html#quiz"><span data-i18n="subjectEnglish">English</span> <span data-i18n="quiz">Quiz</span></a></div>
+          <div class="subject"><a href="History.html#quiz"><span data-i18n="subjectHistory">History</span> <span data-i18n="quiz">Quiz</span></a></div>
+          <div class="subject"><a href="Geography.html#quiz"><span data-i18n="subjectGeography">Geography</span> <span data-i18n="quiz">Quiz</span></a></div>
+          <div class="subject"><a href="Economics.html#quiz"><span data-i18n="subjectEconomics">Economics</span> <span data-i18n="quiz">Quiz</span></a></div>
+          <div class="subject"><a href="Chemistry.html#quiz"><span data-i18n="subjectChemistry">Chemistry</span> <span data-i18n="quiz">Quiz</span></a></div>
+          <div class="subject"><a href="Physics.html#quiz"><span data-i18n="subjectPhysics">Physics</span> <span data-i18n="quiz">Quiz</span></a></div>
+          <div class="subject"><a href="Biology.html#quiz"><span data-i18n="subjectBiology">Biology</span> <span data-i18n="quiz">Quiz</span></a></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        languageLabel: 'Language', pageTitle: 'Student Tutorial App', subtitle: 'Find a tutor, book lessons, and continue learning across your subjects.',
+        welcomeSms: 'Welcome to the Student Tutorial App. You can now find tutors and request lessons.',
+        signIn: 'Sign in', emailPlaceholder: 'Enter your email', passwordPlaceholder: 'Enter your password', phonePlaceholder: 'Enter your phone number',
+        smsNote: 'Continue opens your messaging app with a welcome text. Review and send it there; this page cannot send SMS by itself.',
+        localLoginNote: 'Local demo only: passwords are not checked, and accounts are stored only in this browser.',
+        forgotPassword: 'Forgot password?', signOut: 'Sign out', paymentsTitle: 'Payments are not enabled yet.',
+        paymentsNotice: 'CBE and Telebirr checkout and teacher payouts require approved provider integration. This page will not collect or mark any lesson as paid.',
+        platformNav: 'Tutorial platform', findTutor: 'Find a tutor', myLessons: 'My lessons', teacherDashboard: 'Teacher dashboard', onlineClassroom: 'Online classroom',
+        readyToLearn: 'Ready to start learning?', addStudentIntro: 'Add a student, then choose their grade and subject to find a tutor.',
+        addStudent: 'Add Student', gradeLevel: 'Grade / class level', selectGrade: 'Select grade or class level',
+        subjectToStudy: 'Subject to study', selectSubject: 'Select a subject', saveStudent: 'Save Student and Find Tutors',
+        tutorInstruction: 'Choose a subject and request a lesson. Tutors must accept before the lesson is confirmed.',
+        lessonPricing: 'Student price: {price} ETB per session. Planned split: {payout} ETB for the teacher and {profit} ETB platform share. No payment is collected in this demo.',
+        paymentsUnavailable: 'Payment and payouts are not currently available.',
+        exampleTutorNote: 'Example tutor profiles for this browser-only preview. Tutors are filtered by subject, and the selected grade is included with the lesson request.',
+        requestLessonWith: 'Request a lesson with', subject: 'Subject', preferredLessonTime: 'Preferred lesson time',
+        sendLessonRequest: 'Send lesson request', cancel: 'Cancel', teacherPreviewNote: 'Preview only: requests are stored in this browser and are not shared with real tutors.',
+        teacherEarnings: 'Planned teacher share: {payout} ETB per completed lesson; no money is paid in this demo.',
+        payoutsUnavailable: 'Payouts are unavailable until CBE and Telebirr integration is configured.',
+        localDemo: 'Local demo only.', classroomDemoNote: 'Chat is saved in this browser and is not shared with another device. Camera preview does not transmit video or audio; real-time chat and two-person calls need a shared backend and WebRTC signaling.',
+        videoPreview: 'Video call preview', startCamera: 'Start camera preview', stopCamera: 'Stop camera',
+        cameraOff: 'Your camera is off. Camera preview is local only and is not sent to the tutor.',
+        cameraOffStatus: 'Your camera is off. Camera preview is local only and is not sent to the tutor.',
+        lessonChat: 'Lesson chat', previewChatAs: 'Preview chat as', student: 'Student', teacher: 'Teacher',
+        messagePlaceholder: 'Message...', writeChatMessage: 'Write a chat message', send: 'Send',
+        classroomEmpty: 'Open an accepted lesson from My lessons or the Teacher dashboard to enter its classroom.',
+        learningMaterials: 'Learning materials', quickQuiz: 'Quick Quiz', quiz: 'Quiz',
+        subjectGeneralScience: 'General Science', subjectMathematics: 'Mathematics', subjectCitizenship: 'Citizenship',
+        subjectAmharic: 'Amharic', subjectEnglish: 'English', subjectSocialStudies: 'Social Studies', subjectGeez: 'Geez',
+        subjectHistory: 'History', subjectGeography: 'Geography', subjectEconomics: 'Economics', subjectChemistry: 'Chemistry', subjectPhysics: 'Physics', subjectBiology: 'Biology',
+        grade1: 'Grade 1', grade2: 'Grade 2', grade3: 'Grade 3', grade4: 'Grade 4', grade5: 'Grade 5', grade6: 'Grade 6',
+        grade7: 'Grade 7', grade8: 'Grade 8', grade9: 'Grade 9', grade10: 'Grade 10', grade11: 'Grade 11', grade12: 'Grade 12',
+        welcome: 'Welcome, {name}!', noStudent: 'Click “Add Student” first to choose a grade and subject.',
+        profileSummary: 'Current student: {grade} · Studying {subject}',
+        tutorCardPrice: 'Student price: {price} ETB · Teacher: {payout} ETB · Platform share: {profit} ETB (demo only)',
+        requestLesson: 'Request a lesson', noTutors: 'No example tutors are listed for this subject yet.',
+        lessonRequest: 'Lesson request', studentPriceAmount: 'Student price {amount} ETB',
+        teacherEarnsAmount: 'Teacher earns {amount} ETB', studentName: 'Student: {name}',
+        statusPending: 'Waiting for tutor', statusAccepted: 'Accepted by tutor', statusCompleted: 'Lesson completed',
+        acceptRequest: 'Accept request', markComplete: 'Mark lesson complete',
+        completedEarning: 'Planned split: {amount} ETB for the teacher and {profit} ETB platform share. No money was collected or paid in this demo.',
+        noStudentLessons: 'You have no lesson requests yet.', noTeacherLessons: 'There are no lesson requests yet.',
+        chatTeacher: 'Teacher', chatStudent: 'Student', demoSuffix: '(demo)',
+        noMessages: 'No messages yet. Start the lesson conversation.',
+        cameraLocalOn: 'Camera preview is on this device only. It is not being transmitted to the tutor.',
+        cameraPermissionDenied: 'Camera permission was denied. Allow camera access in your browser to preview it.',
+        cameraUnavailable: 'Camera access is unavailable in this browser or page context.',
+        cameraStartError: 'Could not start the camera preview. Check that a camera is connected and available.',
+        openAcceptedLesson: 'Open an accepted lesson before starting the camera preview.',
+        cameraOffStatus: 'Your camera is off. Camera preview is local only and is not sent to the tutor.',
+        errCredentials: 'Please enter your email and password.', errPhone: 'Please enter your phone number so we can send a message to you.',
+        errProfile: 'Select a grade or class level and a subject to continue.',
+        savedStudent: 'Student saved. Choose a tutor for {grade} {subject}.',
+        errBookingTime: 'Choose a tutor and a future lesson time.', errBookingSubject: 'Choose a subject taught by this tutor.',
+        bookingSaved: 'Your lesson request was saved in this browser. The example tutor has not been notified.',
+        errBookingMissing: 'This lesson request could not be found. Refresh the page and try again.',
+        errBookingChanged: 'This lesson request has already changed. Refresh the page to see its current status.',
+        errClassroom: 'Only accepted lessons can be opened in the classroom.',
+        forgotUnavailable: 'Password reset is not available in this browser-only preview.',
+        tutorBioAmira: 'Patient tutor for citizenship.',
+        tutorBioDawit: 'Step-by-step support in mathematics.',
+        tutorBioHana: 'Reading, writing, and language practice.',
+        tutorBioSelam: 'Explore historical events, timelines, and sources.',
+        tutorBioFitsum: 'Study maps, places, environments, and regions.',
+        tutorBioMeron: 'Learn economic concepts and how they apply to everyday life.',
+        tutorBioChemistry: 'Explore matter, elements, mixtures, and simple chemical changes.',
+        tutorBioPhysics: 'Learn about forces, motion, energy, and simple circuits.',
+        tutorBioBiology: 'Study living things, cells, ecosystems, and how organisms grow.',
+        accountType: 'Account type', admin: 'Admin', accountManagement: 'Account management',
+        localAdminOnly: 'Local demo admin only.', localAdminNotice: 'Accounts are stored in this browser. Passwords are not stored or verified. This is not secure authentication and creates no server accounts.',
+        addAccount: 'Add account', accountName: 'Name', accountEmail: 'Email', saveAccount: 'Save account',
+        editAccount: 'Edit', deleteAccount: 'Delete', active: 'Active', inactive: 'Inactive',
+        setupStudent: 'Complete your student setup by choosing your grade and subject.',
+        setupTeacher: 'Complete your teacher setup by choosing the subject you teach.',
+        accountSaved: 'Account saved in this browser.', accountDeleted: 'Account removed from this browser.',
+        accountExists: 'An account with this email already exists.', accountMissing: 'Choose a grade and subject for this student.',
+        accountTeacherSubjectMissing: 'Choose the subject this teacher teaches.',
+        noManagedAccounts: 'No student or teacher accounts have been added yet.',
+        errAccountSignIn: 'This account is not listed or is inactive in the local demo. Ask the admin to add or activate it.',
+        accountActive: 'Set active', accountInactive: 'Set inactive', teacherSubjects: 'Teaching subject',
+        adminEmailOnly: 'Admin access is limited to yohanneseyosias2005@gmail.com.',
+        loginAsStudent: 'Student', loginAsTeacher: 'Teacher', loginAsAdmin: 'Admin (local demo)'
+      },
+      am: {
+        languageLabel: 'ቋንቋ', pageTitle: 'የተማሪ ትምህርት መተግበሪያ', subtitle: 'አስተማሪ ያግኙ፣ ትምህርት ይያዙ፣ እና በትምህርቶችዎ መማርዎን ይቀጥሉ።',
+        welcomeSms: 'እንኳን ወደ የተማሪ ትምህርት መተግበሪያ በደህና መጡ። አሁን አስተማሪዎችን ፈልገው ትምህርት መጠየቅ ይችላሉ።',
+        signIn: 'ይግቡ', emailPlaceholder: 'ኢሜይልዎን ያስገቡ', passwordPlaceholder: 'የይለፍ ቃልዎን ያስገቡ', phonePlaceholder: 'ስልክ ቁጥርዎን ያስገቡ',
+        smsNote: 'መቀጠል የእንኳን ደህና መጡ መልዕክት ያለውን የመልዕክት መተግበሪያ ይከፍታል። መልዕክቱን በዚያ ይገምግሙና ይላኩ፤ ይህ ገጽ በራሱ SMS መላክ አይችልም።',
+        localLoginNote: 'የአካባቢ ሙከራ ብቻ፦ የይለፍ ቃሎች አይረጋገጡም፣ መለያዎችም በዚህ አሳሽ ውስጥ ብቻ ይቀመጣሉ።',
+        forgotPassword: 'የይለፍ ቃል ረሱ?', signOut: 'ውጣ', paymentsTitle: 'ክፍያዎች ገና አልተነቃቁም።',
+        paymentsNotice: 'የCBE እና Telebirr ክፍያና የአስተማሪ ክፍያ ለመፈጸም የተፈቀደ የአቅራቢ ግንኙነት ያስፈልጋል። ይህ ገጽ ክፍያ አይሰበስብም ወይም ክፍያ ተፈጽሟል ብሎ አያሳይም።',
+        platformNav: 'የትምህርት መድረክ', findTutor: 'አስተማሪ ፈልግ', myLessons: 'ትምህርቶቼ', teacherDashboard: 'የአስተማሪ ዳሽቦርድ', onlineClassroom: 'የመስመር ላይ ክፍል',
+        readyToLearn: 'መማር ለመጀመር ዝግጁ ነዎት?', addStudentIntro: 'ተማሪ ይጨምሩ፣ ከዚያ አስተማሪ ለማግኘት ክፍልና ትምህርት ይምረጡ።',
+        addStudent: 'ተማሪ ጨምር', gradeLevel: 'ክፍል / የትምህርት ደረጃ', selectGrade: 'ክፍል ወይም የትምህርት ደረጃ ይምረጡ',
+        subjectToStudy: 'ለመማር የሚፈልጉት ትምህርት', selectSubject: 'ትምህርት ይምረጡ', saveStudent: 'ተማሪን አስቀምጥና አስተማሪ ፈልግ',
+        tutorInstruction: 'ትምህርት ይምረጡና ትምህርት ይጠይቁ። ትምህርቱ ከመረጋገጡ በፊት አስተማሪው መቀበል አለበት።',
+        lessonPricing: 'የተማሪ ዋጋ: በአንድ ትምህርት {price} ETB። የታቀደ ክፍፍል፦ {payout} ETB ለአስተማሪ፣ {profit} ETB የመድረክ ድርሻ። በዚህ ሙከራ ክፍያ አይሰበሰብም።',
+        paymentsUnavailable: 'ክፍያና የአስተማሪ ክፍያ አሁን አይገኙም።',
+        exampleTutorNote: 'የምሳሌ አስተማሪ መገለጫዎች ብቻ ናቸው። አስተማሪዎች በትምህርት ይመረጣሉ፣ የተመረጠውም ክፍል በጥያቄው ውስጥ ይካተታል።',
+        requestLessonWith: 'ትምህርት ይጠይቁ፦', subject: 'ትምህርት', preferredLessonTime: 'የሚመርጡት የትምህርት ሰዓት',
+        sendLessonRequest: 'የትምህርት ጥያቄ ላክ', cancel: 'ሰርዝ', teacherPreviewNote: 'ለሙከራ ብቻ፦ ጥያቄዎች በዚህ አሳሽ ውስጥ ይቀመጣሉ እንጂ ለእውነተኛ አስተማሪዎች አይላኩም።',
+        teacherEarnings: 'የታቀደ የአስተማሪ ድርሻ፦ በተጠናቀቀ ትምህርት {payout} ETB፤ በዚህ ሙከራ ገንዘብ አይከፈልም።',
+        payoutsUnavailable: 'የCBE እና Telebirr ግንኙነት እስኪዘጋጅ የአስተማሪ ክፍያ አይገኝም።',
+        localDemo: 'በዚህ አሳሽ ውስጥ የሚሰራ ሙከራ ብቻ።', classroomDemoNote: 'ውይይት በዚህ አሳሽ ውስጥ ይቀመጣል፣ ወደ ሌላ መሣሪያ አይላክም። የካሜራ ቅድመ እይታ ቪዲዮ ወይም ድምፅ አያስተላልፍም። ቀጥታ ውይይትና የሁለት ሰው ጥሪ የጋራ አገልጋይና WebRTC ምልክት ማስተላለፍ ይፈልጋሉ።',
+        videoPreview: 'የቪዲዮ ጥሪ ቅድመ እይታ', startCamera: 'የካሜራ ቅድመ እይታ ጀምር', stopCamera: 'ካሜራውን አቁም',
+        cameraOff: 'ካሜራዎ ጠፍቷል። ቅድመ እይታው በዚህ መሣሪያ ላይ ብቻ ነው፤ ለአስተማሪው አይላክም።',
+        cameraOffStatus: 'ካሜራዎ ጠፍቷል። ቅድመ እይታው በዚህ መሣሪያ ላይ ብቻ ነው፤ ለአስተማሪው አይላክም።',
+        lessonChat: 'የትምህርት ውይይት', previewChatAs: 'ውይይቱን እንደ', student: 'ተማሪ', teacher: 'አስተማሪ',
+        messagePlaceholder: 'መልዕክት...', writeChatMessage: 'የውይይት መልዕክት ይጻፉ', send: 'ላክ',
+        classroomEmpty: 'ወደ ክፍሉ ለመግባት ከትምህርቶቼ ወይም ከአስተማሪ ዳሽቦርድ የተቀበለ ትምህርት ይክፈቱ።',
+        learningMaterials: 'የትምህርት መርጃዎች', quickQuiz: 'አጭር ፈተና', quiz: 'ፈተና',
+        subjectGeneralScience: 'አጠቃላይ ሳይንስ', subjectMathematics: 'ሂሳብ', subjectCitizenship: 'ዜግነት',
+        subjectAmharic: 'አማርኛ', subjectEnglish: 'እንግሊዝኛ', subjectSocialStudies: 'ማህበራዊ ጥናት', subjectGeez: 'ግዕዝ',
+        subjectHistory: 'ታሪክ', subjectGeography: 'ጂኦግራፊ', subjectEconomics: 'ኢኮኖሚክስ', subjectChemistry: 'ኬሚስትሪ', subjectPhysics: 'ፊዚክስ', subjectBiology: 'ባዮሎጂ',
+        grade1: 'ክፍል 1', grade2: 'ክፍል 2', grade3: 'ክፍል 3', grade4: 'ክፍል 4', grade5: 'ክፍል 5', grade6: 'ክፍል 6',
+        grade7: 'ክፍል 7', grade8: 'ክፍል 8', grade9: 'ክፍል 9', grade10: 'ክፍል 10', grade11: 'ክፍል 11', grade12: 'ክፍል 12',
+        welcome: 'እንኳን ደህና መጡ፣ {name}!', noStudent: 'ክፍልና ትምህርት ለመምረጥ መጀመሪያ “ተማሪ ጨምር” ይጫኑ።',
+        profileSummary: 'የተማሪ መረጃ፦ {grade} · የሚማረው {subject}',
+        tutorCardPrice: 'የተማሪ ዋጋ፦ {price} ETB · ለአስተማሪ፦ {payout} ETB · የመድረክ ድርሻ፦ {profit} ETB (ሙከራ ብቻ)',
+        requestLesson: 'ትምህርት ጠይቅ', noTutors: 'ለዚህ ትምህርት የምሳሌ አስተማሪዎች አልተዘረዘሩም።',
+        lessonRequest: 'የትምህርት ጥያቄ', studentPriceAmount: 'የተማሪ ዋጋ {amount} ETB',
+        teacherEarnsAmount: 'አስተማሪው የሚያገኘው {amount} ETB', studentName: 'ተማሪ፦ {name}',
+        statusPending: 'አስተማሪውን በመጠባበቅ ላይ', statusAccepted: 'በአስተማሪ ተቀባይነት አግኝቷል', statusCompleted: 'ትምህርቱ ተጠናቋል',
+        acceptRequest: 'ጥያቄውን ተቀበል', markComplete: 'ትምህርቱን እንደተጠናቀቀ ምልክት አድርግ',
+        completedEarning: 'የታቀደ ክፍፍል፦ {amount} ETB ለአስተማሪ፣ {profit} ETB የመድረክ ድርሻ። በዚህ ሙከራ ገንዘብ አልተሰበሰበም ወይም አልተከፈለም።',
+        noStudentLessons: 'እስካሁን የትምህርት ጥያቄ የለዎትም።', noTeacherLessons: 'እስካሁን የትምህርት ጥያቄ የለም።',
+        chatTeacher: 'አስተማሪ', chatStudent: 'ተማሪ', demoSuffix: '(ሙከራ)',
+        noMessages: 'እስካሁን መልዕክት የለም። ውይይቱን ይጀምሩ።',
+        cameraLocalOn: 'የካሜራ ቅድመ እይታ በዚህ መሣሪያ ላይ ብቻ ነው፤ ለአስተማሪው አይተላለፍም።',
+        cameraPermissionDenied: 'የካሜራ ፈቃድ ተከልክሏል። ቅድመ እይታ ለማየት በአሳሹ የካሜራ ፈቃድ ይስጡ።',
+        cameraUnavailable: 'በዚህ አሳሽ ወይም ገጽ ላይ የካሜራ መዳረሻ አይገኝም።',
+        cameraStartError: 'የካሜራ ቅድመ እይታውን ማስጀመር አልተቻለም። ካሜራው እንደተገናኘና እንደሚሰራ ያረጋግጡ።',
+        openAcceptedLesson: 'የካሜራ ቅድመ እይታ ከመጀመርዎ በፊት የተቀበለ ትምህርት ይክፈቱ።',
+        errCredentials: 'ኢሜይልዎንና የይለፍ ቃልዎን ያስገቡ።', errPhone: 'መልዕክት ለመላክ እባክዎ የስልክ ቁጥርዎን ያስገቡ።',
+        errProfile: 'ለመቀጠል ክፍል ወይም የትምህርት ደረጃና ትምህርት ይምረጡ።',
+        savedStudent: 'ተማሪው ተቀምጧል። ለ{grade} {subject} አስተማሪ ይምረጡ።',
+        errBookingTime: 'አስተማሪና ወደፊት ያለ የትምህርት ሰዓት ይምረጡ።', errBookingSubject: 'ይህ አስተማሪ የሚያስተምረውን ትምህርት ይምረጡ።',
+        bookingSaved: 'የትምህርት ጥያቄዎ በዚህ አሳሽ ተቀምጧል። የምሳሌው አስተማሪ አልተነገረውም።',
+        errBookingMissing: 'ይህ የትምህርት ጥያቄ አልተገኘም። ገጹን አድስና እንደገና ይሞክሩ።',
+        errBookingChanged: 'የትምህርት ጥያቄው ተቀይሯል። አሁኑን ሁኔታ ለማየት ገጹን ያድሱ።',
+        errClassroom: 'በክፍሉ ውስጥ መክፈት የሚቻለው የተቀበሉ ትምህርቶችን ብቻ ነው።',
+        forgotUnavailable: 'በዚህ አሳሽ ሙከራ ውስጥ የይለፍ ቃል ማስመለስ አይገኝም።',
+        tutorBioAmira: 'በዜግነት ትምህርት በትዕግስት የሚያግዝ አስተማሪ።',
+        tutorBioDawit: 'በሂሳብ ደረጃ በደረጃ ድጋፍ።',
+        tutorBioHana: 'የማንበብ፣ የመጻፍና የቋንቋ ልምምድ።',
+        tutorBioSelam: 'ታሪካዊ ክስተቶችን፣ የጊዜ ሰሌዳዎችንና ምንጮችን ያጥኑ።',
+        tutorBioFitsum: 'ካርታዎችን፣ ቦታዎችን፣ አካባቢዎችንና ክልሎችን ያጥኑ።',
+        tutorBioMeron: 'የኢኮኖሚ ሐሳቦችንና በዕለት ተዕለት ሕይወት አተገባበራቸውን ይማሩ።',
+        tutorBioChemistry: 'ቁስ፣ ንጥረ ነገሮች፣ ድብልቆችና ቀላል የኬሚካል ለውጦችን ያጥኑ።',
+        tutorBioPhysics: 'ስለ ኃይል፣ እንቅስቃሴ፣ ጉልበትና ቀላል የኤሌክትሪክ ወረዳዎች ይማሩ።',
+        tutorBioBiology: 'ስለ ሕያዋን ነገሮች፣ ሴሎች፣ ሥነ-ምህዳሮችና እድገት ያጥኑ።',
+        accountType: 'የመለያ አይነት', admin: 'አስተዳዳሪ', accountManagement: 'የመለያ አስተዳደር',
+        localAdminOnly: 'የአካባቢ ሙከራ አስተዳዳሪ ብቻ።', localAdminNotice: 'መለያዎች በዚህ አሳሽ ውስጥ ይቀመጣሉ። የይለፍ ቃሎች አይቀመጡም ወይም አይረጋገጡም። ይህ ደህንነቱ የተጠበቀ ማረጋገጫ አይደለም እና በአገልጋይ ላይ መለያ አይፈጥርም።',
+        addAccount: 'መለያ ጨምር', accountName: 'ስም', accountEmail: 'ኢሜይል', saveAccount: 'መለያ አስቀምጥ',
+        editAccount: 'አርትዕ', deleteAccount: 'ሰርዝ', active: 'ንቁ', inactive: 'ቦዝኗል',
+        setupStudent: 'ክፍልዎንና ትምህርትዎን በመምረጥ የተማሪ ማዋቀርዎን ያጠናቅቁ።',
+        setupTeacher: 'የሚያስተምሩትን ትምህርት በመምረጥ የአስተማሪ ማዋቀርዎን ያጠናቅቁ።',
+        accountSaved: 'መለያው በዚህ አሳሽ ተቀምጧል።', accountDeleted: 'መለያው ከዚህ አሳሽ ተወግዷል።',
+        accountExists: 'በዚህ ኢሜይል የተመዘገበ መለያ አለ።', accountMissing: 'ለዚህ ተማሪ ክፍልና ትምህርት ይምረጡ።',
+        accountTeacherSubjectMissing: 'ይህ አስተማሪ የሚያስተምረውን ትምህርት ይምረጡ።',
+        noManagedAccounts: 'ገና ምንም የተማሪ ወይም የአስተማሪ መለያ አልተጨመረም።',
+        errAccountSignIn: 'ይህ መለያ በአካባቢው ሙከራ ውስጥ የለም ወይም ቦዝኗል። አስተዳዳሪው እንዲያክለው ወይም እንዲያነቃው ይጠይቁ።',
+        accountActive: 'አንቃ', accountInactive: 'አቦዝን', teacherSubjects: 'የሚያስተምረው ትምህርት',
+        adminEmailOnly: 'የአስተዳዳሪ መዳረሻ ለyohanneseyosias2005@gmail.com ብቻ ነው።',
+        loginAsStudent: 'ተማሪ', loginAsTeacher: 'አስተማሪ', loginAsAdmin: 'አስተዳዳሪ (የአካባቢ ሙከራ)'
+      },
+      om: {
+        languageLabel: 'Afaan', pageTitle: 'Appii Barnoota Barataa', subtitle: 'Barsiisaa barbaadi, barnoota qabsiifadhu, barnoota kee itti fufi.',
+        welcomeSms: 'Gara Appii Barnoota Barataatti baga nagaan dhuftan. Amma barsiisota barbaaduu fi barnoota gaafachuu dandeessa.',
+        signIn: 'Seeni', emailPlaceholder: 'Imeelii kee galchi', passwordPlaceholder: 'Jecha icciitii kee galchi', phonePlaceholder: 'Lakkoofsa bilbilaa kee galchi',
+        smsNote: 'Itti fufuun ergaa baga nagaan dhuftanii qabu appii ergaa kee bana. Achitti ilaaliitii ergi; fuulli kun ofumaan SMS erguu hin danda’u.',
+        localLoginNote: 'Yaalii naannoo qofa: jechoonni icciitii hin mirkanoofan; herregawwan biraawzara kana qofa keessatti kuufamu.',
+        forgotPassword: 'Jecha icciitii dagattee?', signOut: 'Ba’i', paymentsTitle: 'Kaffaltiin amma hin hojjetu.',
+        paymentsNotice: 'Kaffaltii CBE fi Telebirr fi kaffaltii barsiisaa raawwachuuf walitti hidhamiinsi hayyamame barbaachisa. Fuulli kun kaffaltii hin funaanu ykn kaffalame jedhee hin mallatteessu.',
+        platformNav: 'Waltajjii barnootaa', findTutor: 'Barsiisaa barbaadi', myLessons: 'Barnoota koo', teacherDashboard: 'Daashboordii barsiisaa', onlineClassroom: 'Kutaa barnootaa interneetii',
+        readyToLearn: 'Barachuu jalqabuuf qophoofteettaa?', addStudentIntro: 'Barataa dabali; barsiisaa argachuuf kutaa fi barnoota isaa filadhu.',
+        addStudent: 'Barataa dabali', gradeLevel: 'Kutaa / sadarkaa barnootaa', selectGrade: 'Kutaa ykn sadarkaa barnootaa filadhu',
+        subjectToStudy: 'Barnoota barachuu barbaaddu', selectSubject: 'Barnoota filadhu', saveStudent: 'Barataa olkaa’i; barsiisaa barbaadi',
+        tutorInstruction: 'Barnoota filadhuutii barnoota gaafadhu. Barnootni mirkanaa’uu dura barsiisaan fudhachuu qaba.',
+        lessonPricing: 'Gatiin barataa: barnoota tokkoof {price} ETB. Qoodinsi karoorfame: {payout} ETB barsiisaaf fi {profit} ETB qooda platformii. Yaalii kana keessatti kaffaltiin hin fudhatamu.',
+        paymentsUnavailable: 'Kaffaltii fi kaffaltiin barsiisaa amma hin jiru.',
+        exampleTutorNote: 'Fakkeenya barsiisota qofa. Barsiisonni barnootaan calalamanii, kutaan filatame gaafii barnootaa keessatti dabalama.',
+        requestLessonWith: 'Barnoota gaafadhu:', subject: 'Barnoota', preferredLessonTime: 'Yeroo barnootaa filatame',
+        sendLessonRequest: 'Gaaffii barnootaa ergi', cancel: 'Haquu', teacherPreviewNote: 'Yaalii qofa: gaaffiin biraawzari kana keessatti kuufama; barsiisota dhugaatti hin ergamu.',
+        teacherEarnings: 'Qooda barsiisaa kan karoorfame: barnoota xumurame tokkoof {payout} ETB; yaalii kana keessatti maallaqni hin kaffalamu.',
+        payoutsUnavailable: 'Walitti hidhamiinsi CBE fi Telebirr hanga qophaa’utti kaffaltiin barsiisaa hin jiru.',
+        localDemo: 'Yaalii biraawzarii kana qofa.', classroomDemoNote: 'Marii biraawzari kana keessatti kuufama; meeshaa biraatti hin ergamu. Kaameeraan viidiyoo ykn sagalee hin dabarsu. Mariin yeroo-dhugaa fi bilbilli nama lamaa sarvarii waliin qoodamu fi WebRTC barbaada.',
+        videoPreview: 'Agarsiisa duraa bilbila viidiyoo', startCamera: 'Kaameeraa bani', stopCamera: 'Kaameeraa dhaabi',
+        cameraOff: 'Kaameeraan cufameera. Agarsiisni duraa meeshaa kana qofa irratti hojjetaa; barsiisaaf hin ergamu.',
+        cameraOffStatus: 'Kaameeraan cufameera. Agarsiisni duraa meeshaa kana qofa irratti hojjetaa; barsiisaaf hin ergamu.',
+        lessonChat: 'Marii barnootaa', previewChatAs: 'Marii akka', student: 'Barataa', teacher: 'Barsiisaa',
+        messagePlaceholder: 'Ergaa...', writeChatMessage: 'Ergaa marii barreessi', send: 'Ergi',
+        classroomEmpty: 'Kutaa seenuuf Barnoota koo ykn Daashboordii barsiisaa irraa barnoota fudhatame bani.',
+        learningMaterials: 'Meeshaalee barnootaa', quickQuiz: 'Qormaata gabaabaa', quiz: 'Qormaata',
+        subjectGeneralScience: 'Saayinsii Waliigalaa', subjectMathematics: 'Herrega', subjectCitizenship: 'Lammummaa',
+        subjectAmharic: 'Afaan Amaaraa', subjectEnglish: 'Afaan Ingilizii', subjectSocialStudies: 'Qo’annoo Hawaasaa', subjectGeez: 'Ge’ez',
+        subjectHistory: 'Seenaa', subjectGeography: 'Ji’oograafii', subjectEconomics: 'Dinagdee', subjectChemistry: 'Keemistirii', subjectPhysics: 'Fiiziksii', subjectBiology: 'Baayoloojii',
+        grade1: 'Kutaa 1', grade2: 'Kutaa 2', grade3: 'Kutaa 3', grade4: 'Kutaa 4', grade5: 'Kutaa 5', grade6: 'Kutaa 6',
+        grade7: 'Kutaa 7', grade8: 'Kutaa 8', grade9: 'Kutaa 9', grade10: 'Kutaa 10', grade11: 'Kutaa 11', grade12: 'Kutaa 12',
+        welcome: 'Baga nagaan dhuftan, {name}!', noStudent: 'Kutaa fi barnoota filachuuf jalqaba “Barataa dabali” cuqaasi.',
+        profileSummary: 'Barataa amma: {grade} · Barnoota {subject}',
+        tutorCardPrice: 'Gatiin barataa: {price} ETB · Barsiisaa: {payout} ETB · Qooda platformii: {profit} ETB (yaalii qofa)',
+        requestLesson: 'Barnoota gaafadhu', noTutors: 'Barnoota kanaaf fakkeenyi barsiisaa hin jiru.',
+        lessonRequest: 'Gaaffii barnootaa', studentPriceAmount: 'Gatii barataa {amount} ETB',
+        teacherEarnsAmount: 'Barsiisaan argata {amount} ETB', studentName: 'Barataa: {name}',
+        statusPending: 'Barsiisaa eegaa jira', statusAccepted: 'Barsiisaan fudhate', statusCompleted: 'Barnootni xumurame',
+        acceptRequest: 'Gaaffii fudhadhu', markComplete: 'Barnoota xumurame jedhii mallatteessi',
+        completedEarning: 'Qoodinsi karoorfame: {amount} ETB barsiisaaf fi {profit} ETB qooda platformii. Yaalii kana keessatti maallaqni hin fudhatamne ykn hin kaffalamne.',
+        noStudentLessons: 'Gaaffii barnootaa amma hin qabdu.', noTeacherLessons: 'Gaaffiin barnootaa amma hin jiru.',
+        chatTeacher: 'Barsiisaa', chatStudent: 'Barataa', demoSuffix: '(yaalii)',
+        noMessages: 'Ergaan amma hin jiru. Marii barnootaa jalqabi.',
+        cameraLocalOn: 'Agarsiisni kaameeraa meeshaa kana qofa irratti jira; barsiisaaf hin ergamu.',
+        cameraPermissionDenied: 'Hayyamni kaameeraa dhoorkame. Agarsiisaaf biraawzari keessatti hayyama kenni.',
+        cameraUnavailable: 'Biraawzarii ykn fuula kana irratti kaameeraan hin argamu.',
+        cameraStartError: 'Kaameeraa banuun hin danda’amne. Kaameeraan walqabatee jiraachuu fi hojjechuu isaa mirkaneessi.',
+        openAcceptedLesson: 'Kaameeraa banuun dura barnoota fudhatame bani.',
+        errCredentials: 'Imeelii fi jecha icciitii kee galchi.', errPhone: 'Ergaa erguuf lakkoofsa bilbilaa kee galchi.',
+        errProfile: 'Itti fufuuf kutaa ykn sadarkaa barnootaa fi mata duree filadhu.',
+        savedStudent: 'Barataan olkaa’ameera. {grade} {subject}’f barsiisaa filadhu.',
+        errBookingTime: 'Barsiisaa fi yeroo gara fuulduraa ta’e filadhu.', errBookingSubject: 'Barnoota barsiisaan kun barsiisu filadhu.',
+        bookingSaved: 'Gaaffiin barnootaa kee biraawzara kana keessatti olkaa’ameera. Barsiisaan fakkeenyaa hin beeksifamne.',
+        errBookingMissing: 'Gaaffiin barnootaa kun hin argamne. Fuula haaromsiitii irra deebi’i.',
+        errBookingChanged: 'Gaaffiin barnootaa jijjiirameera. Haala ammaa ilaaluuf fuula haaromsi.',
+        errClassroom: 'Kutaa keessatti barnoota fudhatame qofa banuun ni danda’ama.',
+        forgotUnavailable: 'Yaalii biraawzaraa kana keessatti jecha icciitii deebisuun hin jiru.',
+        tutorBioAmira: 'Barsiisaa barnoota lammummaatti obsaan gargaaru.',
+        tutorBioDawit: 'Herregaa irratti tartiibaan gargaarsa.',
+        tutorBioHana: 'Shaakala dubbisuu, barreessuu fi afaanii.',
+        tutorBioSelam: 'Taateewwan seenaa, sarara yeroo fi maddoota qoradhu.',
+        tutorBioFitsum: 'Kaartaa, iddoowwan, naannoo fi kutaa biyya qoradhu.',
+        tutorBioMeron: 'Yaad-rimeewwan dinagdee fi jireenya guyyaa guyyaa keessatti hojiirra oolmaa isaanii baradhu.',
+        tutorBioChemistry: 'Waa’ee wantoota, elementoota, makaa fi jijjiirama keemikaalaa salphaa qoradhu.',
+        tutorBioPhysics: 'Waa’ee humna, sochii, anniisaa fi marsaa elektirikii salphaa baradhu.',
+        tutorBioBiology: 'Waa’ee lubbu-qabeeyyii, seelota, sirna ikoo fi guddina isaanii baradhu.',
+        accountType: 'Gosa herregaa', admin: 'Bulchaa', accountManagement: 'Bulchiinsa herregaa',
+        localAdminOnly: 'Bulchaa yaalii naannoo qofa.', localAdminNotice: 'Herregawwan biraawzara kana keessatti kuufamu. Jechoonni icciitii hin kuufaman ykn hin mirkanoofne. Kun mirkaneessa nageenyaa miti; sarvarii irrattis herrega hin uumu.',
+        addAccount: 'Herrega dabali', accountName: 'Maqaa', accountEmail: 'Imeelii', saveAccount: 'Herrega olkaa’i',
+        editAccount: 'Gulaali', deleteAccount: 'Haqi', active: 'Hojii irra', inactive: 'Hojii ala',
+        setupStudent: 'Kutaa fi barnoota kee filachuun qindaa’ina barataa xumuri.',
+        setupTeacher: 'Barnoota ati barsiistu filachuun qindaa’ina barsiisaa xumuri.',
+        accountSaved: 'Herregni biraawzara kana keessatti olkaa’ameera.', accountDeleted: 'Herregni biraawzara kana keessaa haqameera.',
+        accountExists: 'Herregni imeelii kanaan duraan jira.', accountMissing: 'Barataa kanaaf kutaa fi barnoota filadhu.',
+        accountTeacherSubjectMissing: 'Barnoota barsiisaan kun barsiisu filadhu.',
+        noManagedAccounts: 'Herregni barataa ykn barsiisaa amma hin dabalamiin.',
+        errAccountSignIn: 'Herregni kun yaalii naannoo keessatti hin jiru ykn hojii ala jira. Bulchaa akka dabaluu ykn hojii irra oolchu gaafadhu.',
+        accountActive: 'Hojii irra oolchi', accountInactive: 'Hojii irraa dhaabi', teacherSubjects: 'Barnoota barsiisu',
+        adminEmailOnly: 'Alaan bulchaa yohanneseyosias2005@gmail.com qofaaf hayyamama.',
+        loginAsStudent: 'Barataa', loginAsTeacher: 'Barsiisaa', loginAsAdmin: 'Bulchaa (yaalii naannoo)'
+      },
+      ti: {
+        languageLabel: 'ቋንቋ', pageTitle: 'ናይ ተማሃራይ ትምህርቲ መተግበሪ', subtitle: 'መምህር ድለ፣ ትምህርቲ ሓዝ፣ ኣብ ትምህርትታትካ ምምሃር ቀጽል።',
+        welcomeSms: 'ናብ ናይ ተማሃራይ ትምህርቲ መተግበሪ ብደሓን መጺእካ። ሕጂ መምህራን ድለን ትምህርቲ ሕተትን።',
+        signIn: 'እቶ', emailPlaceholder: 'ኢመይልካ ኣእቱ', passwordPlaceholder: 'መሕለፊ ቃልካ ኣእቱ', phonePlaceholder: 'ቁጽሪ ተሌፎንካ ኣእቱ',
+        smsNote: 'ምቕጻል ናይ ሰላምታ መልእኽቲ ዘለዎ መተግበሪ መልእኽቲ ይኸፍት። ኣብኡ ገምግሞን ስደዶን፤ እዚ ገጽ ባዕሉ SMS ክሰድድ ኣይክእልን።',
+        localLoginNote: 'ናይ ከባቢ ሙከራ ጥራይ፦ መሕለፊ ቃላት ኣይረጋገጹን፣ ሕሳባት ኣብዚ መርበብ ሓበሬታ ጥራይ ይዕቀቡ።',
+        forgotPassword: 'መሕለፊ ቃል ረሲዕካዮ?', signOut: 'ውጻእ', paymentsTitle: 'ክፍሊታት ገና ኣይተኣታተዉን።',
+        paymentsNotice: 'ክፍሊት CBEን Telebirrን ከምኡውን ክፍሊት መምህር ንምፍጻም ዝተፈቕደ ምትእስሳር ኣቕራቢ የድሊ። እዚ ገጽ ገንዘብ ኣይእክብን ወይ ከም ዝተኸፍለ ኣይምልክትን።',
+        platformNav: 'መድረኽ ትምህርቲ', findTutor: 'መምህር ድለ', myLessons: 'ትምህርተይ', teacherDashboard: 'ዳሽቦርድ መምህር', onlineClassroom: 'ናይ ኢንተርነት ክፍሊ',
+        readyToLearn: 'ምምሃር ክትጅምር ድሉው ዲኻ?', addStudentIntro: 'ተማሃራይ ወስኽ፣ ድሕሪኡ መምህር ንምርካብ ክፍሊን ትምህርትን ምረጽ።',
+        addStudent: 'ተማሃራይ ወስኽ', gradeLevel: 'ክፍሊ / ደረጃ ትምህርቲ', selectGrade: 'ክፍሊ ወይ ደረጃ ትምህርቲ ምረጽ',
+        subjectToStudy: 'ክትመሃሮ እትደሊ ትምህርቲ', selectSubject: 'ትምህርቲ ምረጽ', saveStudent: 'ተማሃራይ ዓቅብን መምህር ድለን',
+        tutorInstruction: 'ትምህርቲ ምረጽን ትምህርቲ ሕተትን። ትምህርቲ ቅድሚ ምርግጋጹ መምህር ክቕበሎ ኣለዎ።',
+        lessonPricing: 'ዋጋ ተማሃራይ፦ ንሓደ ትምህርቲ {price} ETB። ዝተሓሰበ ክፍፍል፦ {payout} ETB ንመምህር፣ {profit} ETB ናይ መድረኽ ድርሻ። ኣብዚ ሙከራ ገንዘብ ኣይእከብን።',
+        paymentsUnavailable: 'ክፍሊትን ክፍሊት መምህርን ሕጂ ኣይርከቡን።',
+        exampleTutorNote: 'ናይ ምሳሌ መምህራን ጥራይ። መምህራን ብትምህርቲ ይምረጹ፣ ዝተመርጸ ክፍሊ ኣብ ሕቶ ትምህርቲ ይኣቱ።',
+        requestLessonWith: 'ትምህርቲ ሕተት፦', subject: 'ትምህርቲ', preferredLessonTime: 'ዝመረጽካዮ ግዜ ትምህርቲ',
+        sendLessonRequest: 'ሕቶ ትምህርቲ ስደድ', cancel: 'ሰርዝ', teacherPreviewNote: 'ንሙከራ ጥራይ፦ ሕቶታት ኣብዚ መርበብ ሓበሬታ ይዕቀቡ፣ ናብ ናይ ሓቂ መምህራን ኣይስደዱን።',
+        teacherEarnings: 'ዝተሓሰበ ድርሻ መምህር፦ ንዝተዛዘመ ትምህርቲ {payout} ETB፤ ኣብዚ ሙከራ ገንዘብ ኣይክፈልን።',
+        payoutsUnavailable: 'ምትእስሳር CBEን Telebirrን ክሳብ ዝዳሎ ክፍሊት መምህር ኣይርከብን።',
+        localDemo: 'ኣብዚ መርበብ ሓበሬታ ዝካየድ ሙከራ ጥራይ።', classroomDemoNote: 'ዕላል ኣብዚ መርበብ ሓበሬታ ይዕቀብ፣ ናብ ካልእ መሳርሒ ኣይስደድን። ቅድመ ርእይቶ ካሜራ ቪድዮ ወይ ድምጺ ኣየመሓላልፍን። ቀጥታ ዕላልን ናይ ክልተ ሰባት ጻውዒትን ሓባራዊ ሰርቨርን WebRTC ምልክት ምልኣኽን የድሊ።',
+        videoPreview: 'ቅድመ ርእይቶ ቪድዮ ጻውዒት', startCamera: 'ቅድመ ርእይቶ ካሜራ ጀምር', stopCamera: 'ካሜራ ኣቋርጽ',
+        cameraOff: 'ካሜራኻ ተዓጽዩ ኣሎ። ቅድመ ርእይቶ ኣብዚ መሳርሒ ጥራይ እዩ፤ ናብ መምህር ኣይስደድን።',
+        cameraOffStatus: 'ካሜራኻ ተዓጽዩ ኣሎ። ቅድመ ርእይቶ ኣብዚ መሳርሒ ጥራይ እዩ፤ ናብ መምህር ኣይስደድን።',
+        lessonChat: 'ዕላል ትምህርቲ', previewChatAs: 'ዕላል ከም', student: 'ተማሃራይ', teacher: 'መምህር',
+        messagePlaceholder: 'መልእኽቲ...', writeChatMessage: 'መልእኽቲ ዕላል ጸሓፍ', send: 'ስደድ',
+        classroomEmpty: 'ናብ ክፍሊ ንምእታው ካብ ትምህርተይ ወይ ዳሽቦርድ መምህር ዝተቐበለ ትምህርቲ ክፈት።',
+        learningMaterials: 'መሳርሒታት ትምህርቲ', quickQuiz: 'ቅልጡፍ ፈተና', quiz: 'ፈተና',
+        subjectGeneralScience: 'ሓፈሻዊ ሳይንስ', subjectMathematics: 'ሒሳብ', subjectCitizenship: 'ዜግነት',
+        subjectAmharic: 'ኣምሓርኛ', subjectEnglish: 'እንግሊዝኛ', subjectSocialStudies: 'ማሕበራዊ መጽናዕቲ', subjectGeez: 'ግዕዝ',
+        subjectHistory: 'ታሪኽ', subjectGeography: 'ጂኦግራፊ', subjectEconomics: 'ቁጠባ', subjectChemistry: 'ኬሚስትሪ', subjectPhysics: 'ፊዚክስ', subjectBiology: 'ባዮሎጂ',
+        grade1: 'ክፍሊ 1', grade2: 'ክፍሊ 2', grade3: 'ክፍሊ 3', grade4: 'ክፍሊ 4', grade5: 'ክፍሊ 5', grade6: 'ክፍሊ 6',
+        grade7: 'ክፍሊ 7', grade8: 'ክፍሊ 8', grade9: 'ክፍሊ 9', grade10: 'ክፍሊ 10', grade11: 'ክፍሊ 11', grade12: 'ክፍሊ 12',
+        welcome: 'እንቋዕ ብደሓን መጻእካ፣ {name}!', noStudent: 'ክፍሊን ትምህርትን ንምምራጽ መጀመርታ “ተማሃራይ ወስኽ” ጠውቕ።',
+        profileSummary: 'ናይ ሕጂ ተማሃራይ፦ {grade} · ዝመሃሮ {subject}',
+        tutorCardPrice: 'ዋጋ ተማሃራይ፦ {price} ETB · ንመምህር፦ {payout} ETB · ናይ መድረኽ ድርሻ፦ {profit} ETB (ሙከራ ጥራይ)',
+        requestLesson: 'ትምህርቲ ሕተት', noTutors: 'ንዚ ትምህርቲ ናይ ምሳሌ መምህራን የለዉን።',
+        lessonRequest: 'ሕቶ ትምህርቲ', studentPriceAmount: 'ዋጋ ተማሃራይ {amount} ETB',
+        teacherEarnsAmount: 'መምህር ዝረኽቦ {amount} ETB', studentName: 'ተማሃራይ፦ {name}',
+        statusPending: 'መምህር ይጽበ', statusAccepted: 'ብመምህር ተቐቢሉ', statusCompleted: 'ትምህርቲ ተዛዚሙ',
+        acceptRequest: 'ሕቶ ተቐበል', markComplete: 'ትምህርቲ ከም ዝተዛዘመ ምልክት ግበር',
+        completedEarning: 'ዝተሓሰበ ክፍፍል፦ {amount} ETB ንመምህር፣ {profit} ETB ናይ መድረኽ ድርሻ። ኣብዚ ሙከራ ገንዘብ ኣይተኣከበን ወይ ኣይተኸፍለን።',
+        noStudentLessons: 'ገና ሕቶ ትምህርቲ የብልካን።', noTeacherLessons: 'ገና ሕቶ ትምህርቲ የለን።',
+        chatTeacher: 'መምህር', chatStudent: 'ተማሃራይ', demoSuffix: '(ሙከራ)',
+        noMessages: 'ገና መልእኽቲ የለን። ዕላል ትምህርቲ ጀምር።',
+        cameraLocalOn: 'ቅድመ ርእይቶ ካሜራ ኣብዚ መሳርሒ ጥራይ እዩ፤ ናብ መምህር ኣይመሓላለፍን።',
+        cameraPermissionDenied: 'ፍቓድ ካሜራ ተኸልኪሉ። ቅድመ ርእይቶ ንምርኣይ ኣብ መርበብ ሓበሬታ ፍቓድ ሃብ።',
+        cameraUnavailable: 'ኣብዚ መርበብ ሓበሬታ ወይ ገጽ ካሜራ ኣይርከብን።',
+        cameraStartError: 'ቅድመ ርእይቶ ካሜራ ምጅማር ኣይተኻእለን። ካሜራ ከም ዝተኣሳሰረን ከም ዝሰርሕን ኣረጋግጽ።',
+        openAcceptedLesson: 'ቅድመ ርእይቶ ካሜራ ቅድሚ ምጅማርካ ዝተቐበለ ትምህርቲ ክፈት።',
+        errCredentials: 'ኢመይልካን መሕለፊ ቃልካን ኣእቱ።', errPhone: 'መልእኽቲ ንምልኣኽ ቁጽሪ ተሌፎንካ ኣእቱ።',
+        errProfile: 'ንምቕጻል ክፍሊ ወይ ደረጃ ትምህርቲን ትምህርትን ምረጽ።',
+        savedStudent: 'ተማሃራይ ተዓቂቡ። ን{grade} {subject} መምህር ምረጽ።',
+        errBookingTime: 'መምህርን ኣብ መጻኢ ዝኾነ ግዜ ትምህርትን ምረጽ።', errBookingSubject: 'እዚ መምህር ዝምህሮ ትምህርቲ ምረጽ።',
+        bookingSaved: 'ሕቶ ትምህርትኻ ኣብዚ መርበብ ሓበሬታ ተዓቂቡ። እቲ ናይ ምሳሌ መምህር ኣይተሓበረን።',
+        errBookingMissing: 'እዚ ሕቶ ትምህርቲ ኣይተረኽበን። ገጽ ኣሐድስን እንደገና ፈትንን።',
+        errBookingChanged: 'እቲ ሕቶ ትምህርቲ ተቐይሩ ኣሎ። ንሕጂ ኩነታት ገጽ ኣሐድስ።',
+        errClassroom: 'ኣብ ክፍሊ ክኽፈት ዝኽእል ዝተቐበለ ትምህርቲ ጥራይ እዩ።',
+        forgotUnavailable: 'ኣብዚ ሙከራ መርበብ ሓበሬታ መሕለፊ ቃል ምምላስ ኣይርከብን።',
+        tutorBioAmira: 'ኣብ ዜግነት ብትዕግስቲ ዝሕግዝ መምህር።',
+        tutorBioDawit: 'ኣብ ሒሳብ ብደረጃ ዝህብ ደገፍ።',
+        tutorBioHana: 'ልምምድ ንባብ፣ ጽሕፈትን ቋንቋን።',
+        tutorBioSelam: 'ፍጻመታት ታሪኽ፣ መስመር ግዜን ምንጭታትን ኣጽንዕ።',
+        tutorBioFitsum: 'ካርታታት፣ ቦታታት፣ ከባቢታትን ዞባታትን ኣጽንዕ።',
+        tutorBioMeron: 'ኣምራት ቁጠባን ኣብ ህይወት መዓልታዊ ኣተገባብርኦምን ተማሃር።',
+        tutorBioChemistry: 'ብዛዕባ ንጥረ ነገራት፣ ኤለመንታት፣ ሕውስዋሳትን ቀለልቲ ኬሚካላዊ ለውጥታትን መርምር።',
+        tutorBioPhysics: 'ብዛዕባ ሓይሊ፣ ምንቅስቓስ፣ ጸዓትን ቀለልቲ ኤሌክትሪካዊ ዑደታትን ተማሃር።',
+        tutorBioBiology: 'ብዛዕባ ህያዋን ፍጥረታት፣ ዋህዮታት፣ ስነ-ምህዳርን ዕቤት ፍጥረታትን ኣጽንዕ።',
+        accountType: 'ዓይነት ሕሳብ', admin: 'ኣማሓዳሪ', accountManagement: 'ምምሕዳር ሕሳብ',
+        localAdminOnly: 'ናይ ከባቢ ሙከራ ኣማሓዳሪ ጥራይ።', localAdminNotice: 'ሕሳባት ኣብዚ መርበብ ሓበሬታ ይዕቀቡ። መሕለፊ ቃላት ኣይዕቀቡን ወይ ኣይረጋገጹን። እዚ ውሑስ ምርግጋጽ ኣይኮነን፣ ኣብ ሰርቨር እውን ሕሳብ ኣይፈጥርን።',
+        addAccount: 'ሕሳብ ወስኽ', accountName: 'ስም', accountEmail: 'ኢመይል', saveAccount: 'ሕሳብ ዓቅብ',
+        editAccount: 'ኣርትዕ', deleteAccount: 'ሰርዝ', active: 'ኣብ ስራሕ', inactive: 'ደው ኢሉ',
+        setupStudent: 'ክፍሊኻን ትምህርትኻን ብምምራጽ ናይ ተማሃራይ ምድላውካ ዛዝም።',
+        setupTeacher: 'እትምህሮ ትምህርቲ ብምምራጽ ናይ መምህር ምድላውካ ዛዝም።',
+        accountSaved: 'ሕሳብ ኣብዚ መርበብ ሓበሬታ ተዓቂቡ።', accountDeleted: 'ሕሳብ ካብዚ መርበብ ሓበሬታ ተወጊዱ።',
+        accountExists: 'ብዚ ኢመይል ዝተመዝገበ ሕሳብ ኣሎ።', accountMissing: 'ንዚ ተማሃራይ ክፍሊን ትምህርትን ምረጽ።',
+        accountTeacherSubjectMissing: 'እዚ መምህር ዝምህሮ ትምህርቲ ምረጽ።',
+        noManagedAccounts: 'ገና ሕሳብ ተማሃራይ ወይ መምህር ኣይተወሰኸን።',
+        errAccountSignIn: 'እዚ ሕሳብ ኣብ ናይ ከባቢ ሙከራ የለን ወይ ደው ኢሉ። ኣማሓዳሪ ክውስኾ ወይ ከተኣታትዎ ሕተት።',
+        accountActive: 'ኣብ ስራሕ ኣእቱ', accountInactive: 'ካብ ስራሕ ኣውጽእ', teacherSubjects: 'ዝምህሮ ትምህርቲ',
+        adminEmailOnly: 'ናይ ኣማሓዳሪ መእተዊ ንyohanneseyosias2005@gmail.com ጥራይ እዩ።',
+        loginAsStudent: 'ተማሃራይ', loginAsTeacher: 'መምህር', loginAsAdmin: 'ኣማሓዳሪ (ናይ ከባቢ ሙከራ)'
+      }
+    };
+
+    const signinBtn = document.getElementById('sign-in-btn');
+    const signoutBtn = document.getElementById('signout-btn');
+    const forgotPasswordBtn = document.getElementById('forgot-password-btn');
+    const loginForm = document.getElementById('login-form');
+    const appContent = document.getElementById('app-content');
+    const emailInput = document.getElementById('student-email');
+    const passwordInput = document.getElementById('student-password');
+    const phoneInput = document.getElementById('student-phone');
+    const loginRoleSelect = document.getElementById('login-role');
+    const phoneLoginFields = document.getElementById('phone-login-fields');
+    const accountForm = document.getElementById('account-form');
+    const accountNameInput = document.getElementById('account-name');
+    const accountEmailInput = document.getElementById('account-email');
+    const accountRoleSelect = document.getElementById('account-role');
+    const accountGradeInput = document.getElementById('account-grade');
+    const accountSubjectInput = document.getElementById('account-subject');
+    const accountSubjectLabel = document.getElementById('account-subject-label');
+    const managedStudentFields = document.getElementById('managed-student-fields');
+    const managedAccounts = document.getElementById('managed-accounts');
+    const cancelAccountEditButton = document.getElementById('cancel-account-edit-btn');
+    const accountFormTitle = document.getElementById('account-form-title');
+    const languageSelect = document.getElementById('language-select');
+    const supportedLanguages = ['en', 'am', 'om', 'ti'];
+    const languageLocales = { en: 'en', am: 'am-ET', om: 'om-ET', ti: 'ti-ET' };
+    let currentLanguage = localStorage.getItem('studentTutorialLanguage') || 'en';
+    if (!supportedLanguages.includes(currentLanguage)) {
+      currentLanguage = 'en';
+    }
+
+    function translate(key, values) {
+      const language = translations[currentLanguage];
+      let text = language[key] || translations.en[key];
+      if (!text) {
+        return key;
+      }
+      Object.keys(values || {}).forEach(function (name) {
+        text = text.replaceAll('{' + name + '}', String(values[name]));
+      });
+      return text;
+    }
+
+    function localizedSubject(subject) {
+      const key = 'subject' + subject.replace(/\s/g, '');
+      return translate(key);
+    }
+
+    function localizedGrade(grade) {
+      const gradeNumber = grade.match(/\d+/);
+      return gradeNumber ? translate('grade' + gradeNumber[0]) : grade;
+    }
+
+    function applyTranslations() {
+      document.documentElement.lang = currentLanguage === 'om' ? 'om' : currentLanguage;
+      document.title = translate('pageTitle');
+      document.querySelectorAll('[data-i18n]').forEach(function (element) {
+        element.textContent = translate(element.dataset.i18n, {
+          price: lessonPrice.toLocaleString(languageLocales[currentLanguage]),
+          payout: teacherPayout.toLocaleString(languageLocales[currentLanguage]),
+          profit: platformShare.toLocaleString(languageLocales[currentLanguage])
+        });
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function (element) {
+        element.placeholder = translate(element.dataset.i18nPlaceholder);
+      });
+      document.querySelectorAll('[data-i18n-aria-label]').forEach(function (element) {
+        element.setAttribute('aria-label', translate(element.dataset.i18nAriaLabel));
+      });
+      languageSelect.value = currentLanguage;
+      if (signedInUser()) {
+        welcomeMessage.textContent = translate('welcome', { name: signedInUser() });
+      }
+      renderStudentProfile();
+      renderTutors();
+      renderLessons();
+      renderManagedAccounts();
+      if (selectedTutorId) {
+        const selectedTutor = tutors.find(function (tutor) {
+          return tutor.id === selectedTutorId;
+        });
+        const profile = getStudentProfile();
+        if (selectedTutor && profile) {
+          document.getElementById('selected-teacher-subject').textContent =
+            localizedGrade(profile.grade) + ' · ' + localizedSubject(profile.subject);
+        }
+      }
+      Array.from(lessonSubjectInput.options).forEach(function (option) {
+        if (option.value) {
+          option.textContent = localizedSubject(option.value);
+        }
+      });
+      if (activeClassroomBookingId) {
+        updateClassroomDetails(activeClassroomBookingId);
+        renderChat();
+      }
+      if (cameraStream) {
+        cameraStatus.textContent = translate('cameraLocalOn');
+      }
+    }
+
+    const welcomeMessage = document.getElementById('welcome-message');
+    const addStudentButton = document.getElementById('add-student-btn');
+    const studentForm = document.getElementById('student-form');
+    const studentGradeInput = document.getElementById('student-grade');
+    const studentSubjectInput = document.getElementById('student-subject');
+    const studentProfileSummary = document.getElementById('student-profile-summary');
+    const teacherList = document.getElementById('teacher-list');
+    const bookingForm = document.getElementById('booking-form');
+    const lessonSubjectInput = document.getElementById('lesson-subject');
+    const lessonTimeInput = document.getElementById('lesson-time');
+    const studentLessons = document.getElementById('student-lessons');
+    const teacherLessons = document.getElementById('teacher-lessons');
+    const classroom = document.getElementById('classroom');
+    const classroomTitle = document.getElementById('classroom-title');
+    const chatParticipant = document.getElementById('chat-participant');
+    const classroomEmpty = document.getElementById('classroom-empty');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatRole = document.getElementById('chat-role');
+    const cameraPreview = document.getElementById('camera-preview');
+    const startCameraButton = document.getElementById('start-camera-btn');
+    const stopCameraButton = document.getElementById('stop-camera-btn');
+    const cameraStatus = document.getElementById('camera-status');
+    const lessonPrice = 2000;
+    const teacherPayout = 1700;
+    const platformShare = lessonPrice - teacherPayout;
+    const adminEmail = 'yohanneseyosias2005@gmail.com';
+
+    const tutors = [
+      { id: 'tutor-amira', name: 'Amira Bekele', subjects: ['Citizenship'], bio: 'Patient tutor for citizenship.' },
+      { id: 'tutor-dawit', name: 'Dawit Tadesse', subjects: ['Mathematics'], bio: 'Step-by-step support in mathematics.' },
+      { id: 'tutor-hana', name: 'Hana Alemu', subjects: ['English', 'Amharic'], bio: 'Reading, writing, and language practice.' },
+      { id: 'tutor-selam', name: 'Selam Tesfaye', subjects: ['History'], bio: 'Explore historical events, timelines, and sources.' },
+      { id: 'tutor-fitsum', name: 'Fitsum Mekonnen', subjects: ['Geography'], bio: 'Study maps, places, environments, and regions.' },
+      { id: 'tutor-meron', name: 'Meron Haile', subjects: ['Economics'], bio: 'Learn economic concepts and how they apply to everyday life.' },
+      { id: 'tutor-chemistry', name: 'Liya Tesfaye', subjects: ['Chemistry'], bio: 'Explore matter, elements, mixtures, and simple chemical changes.' },
+      { id: 'tutor-physics', name: 'Yonas Bekele', subjects: ['Physics'], bio: 'Learn about forces, motion, energy, and simple circuits.' },
+      { id: 'tutor-biology', name: 'Hirut Alemu', subjects: ['Biology'], bio: 'Study living things, cells, ecosystems, and how organisms grow.' }
+    ];
+    let selectedTutorId = null;
+    let activeClassroomBookingId = null;
+    let cameraStream = null;
+    let editingAccountEmail = null;
+
+    function signedInUser() {
+      return localStorage.getItem('studentTutorialUser');
+    }
+
+    function signedInRole() {
+      return localStorage.getItem('studentTutorialRole') || 'student';
+    }
+
+    function profileKeyForEmail(email) {
+      return 'studentTutorialProfile:' + encodeURIComponent(email.toLowerCase());
+    }
+
+    function studentProfileKey() {
+      return profileKeyForEmail(signedInUser());
+    }
+
+    function getManagedAccounts() {
+      const savedAccounts = localStorage.getItem('studentTutorialAccounts');
+      if (!savedAccounts) {
+        return [];
+      }
+      const accounts = JSON.parse(savedAccounts);
+      if (!Array.isArray(accounts)) {
+        throw new Error('Saved managed accounts must be an array.');
+      }
+      return accounts;
+    }
+
+    function saveManagedAccounts(accounts) {
+      localStorage.setItem('studentTutorialAccounts', JSON.stringify(accounts));
+    }
+
+    function showDashboardForRole(role, initialView) {
+      if (role === 'admin' && signedInUser().trim().toLowerCase() !== adminEmail) {
+        localStorage.removeItem('studentTutorialUser');
+        localStorage.removeItem('studentTutorialRole');
+        loginForm.style.display = 'block';
+        appContent.style.display = 'none';
+        return;
+      }
+      const allowedViews = {
+        student: ['find', 'student', 'classroom'],
+        teacher: ['teacher', 'classroom'],
+        admin: ['admin']
+      }[role] || ['find', 'student', 'classroom'];
+      document.querySelectorAll('.dashboard-nav button').forEach(function (button) {
+        button.hidden = !button.dataset.roles.split(',').includes(role);
+        button.setAttribute('aria-pressed', 'false');
+      });
+      document.getElementById('learning-materials-section').hidden = role !== 'student';
+      document.getElementById('admin-section').hidden = true;
+      document.getElementById('find-section').hidden = true;
+      document.getElementById('student-section').hidden = true;
+      document.getElementById('teacher-section').hidden = true;
+      document.getElementById('classroom-section').hidden = true;
+      const selectedView = allowedViews.includes(initialView) ? initialView : allowedViews[0];
+      const selectedButton = document.querySelector('[data-view="' + selectedView + '"]');
+      selectedButton.setAttribute('aria-pressed', 'true');
+      document.getElementById(selectedView + '-section').hidden = false;
+    }
+
+    function getStudentProfile() {
+      if (!signedInUser()) {
+        return null;
+      }
+      const savedProfile = localStorage.getItem(studentProfileKey());
+      return savedProfile ? JSON.parse(savedProfile) : null;
+    }
+
+    function sendSmsMessage(phoneNumber) {
+      const cleanNumber = phoneNumber.replace(/[^\d+]/g, '').trim();
+      const message = translate('welcomeSms');
+      const smsLink = 'sms:' + cleanNumber + '?body=' + encodeURIComponent(message);
+      window.location.href = smsLink;
+    }
+
+    function setSignedInUser(email, role) {
+      localStorage.setItem('studentTutorialUser', email);
+      localStorage.setItem('studentTutorialRole', role);
+    }
+
+    function signOut() {
+      stopCameraPreview();
+      localStorage.removeItem('studentTutorialUser');
+      localStorage.removeItem('studentTutorialRole');
+      window.location.reload();
+    }
+
+    if (signedInUser() && !(signedInRole() === 'admin' && signedInUser().trim().toLowerCase() !== adminEmail)) {
+      loginForm.style.display = 'none';
+      appContent.style.display = 'block';
+      welcomeMessage.textContent = translate('welcome', { name: signedInUser() });
+      renderStudentProfile();
+      renderTutors();
+      renderLessons();
+      renderManagedAccounts();
+      showDashboardForRole(signedInRole());
+    } else if (signedInRole() === 'admin') {
+      localStorage.removeItem('studentTutorialUser');
+      localStorage.removeItem('studentTutorialRole');
+    }
+
+    function getBookings() {
+      const savedBookings = localStorage.getItem('studentTutorialBookings');
+      return savedBookings ? JSON.parse(savedBookings) : [];
+    }
+
+    function saveBookings(bookings) {
+      localStorage.setItem('studentTutorialBookings', JSON.stringify(bookings));
+    }
+
+    function renderStudentProfile() {
+      const profile = getStudentProfile();
+      if (profile) {
+        studentGradeInput.value = profile.grade;
+        studentSubjectInput.value = profile.subject;
+        studentSubjectInput.disabled = false;
+        studentProfileSummary.textContent = translate('profileSummary', {
+          grade: localizedGrade(profile.grade),
+          subject: localizedSubject(profile.subject)
+        });
+        studentProfileSummary.hidden = false;
+      } else {
+        studentGradeInput.value = '';
+        studentSubjectInput.value = '';
+        studentSubjectInput.disabled = true;
+        studentProfileSummary.hidden = true;
+      }
+    }
+
+    function renderTutors() {
+      const profile = getStudentProfile();
+      teacherList.replaceChildren();
+      if (!profile) {
+        teacherList.textContent = translate('noStudent');
+        return;
+      }
+
+      const filter = profile.subject;
+      const visibleTutors = tutors.filter(function (tutor) {
+        return tutor.subjects.includes(filter);
+      });
+
+      visibleTutors.forEach(function (tutor) {
+        const card = document.createElement('article');
+        card.className = 'teacher-card';
+        const subjects = tutor.subjects.map(localizedSubject).join(', ');
+        const tutorBioKey = 'tutorBio' + tutor.id.slice('tutor-'.length).replace(/(^|-)([a-z])/g, function (match, hyphen, letter) {
+          return letter.toUpperCase();
+        });
+        card.innerHTML = '<h3></h3><p class="muted"></p><p></p><p><strong></strong></p><button class="action-button" type="button"></button>';
+        card.querySelector('h3').textContent = tutor.name;
+        card.querySelectorAll('p')[0].textContent = subjects;
+        card.querySelectorAll('p')[1].textContent = translate(tutorBioKey);
+        card.querySelector('strong').textContent = translate('tutorCardPrice', {
+          price: lessonPrice.toLocaleString(languageLocales[currentLanguage]),
+          payout: teacherPayout.toLocaleString(languageLocales[currentLanguage]),
+          profit: platformShare.toLocaleString(languageLocales[currentLanguage])
+        });
+        card.querySelector('button').textContent = translate('requestLesson');
+        card.querySelector('button').addEventListener('click', function () {
+          selectedTutorId = tutor.id;
+          document.getElementById('selected-teacher-name').textContent = tutor.name;
+          document.getElementById('selected-teacher-subject').textContent = localizedGrade(profile.grade) + ' · ' + localizedSubject(profile.subject);
+          lessonSubjectInput.replaceChildren();
+          const option = document.createElement('option');
+          option.value = profile.subject;
+          option.textContent = localizedSubject(profile.subject);
+          lessonSubjectInput.appendChild(option);
+          lessonTimeInput.min = new Date(Date.now() + 60000).toISOString().slice(0, 16);
+          bookingForm.hidden = false;
+          lessonTimeInput.focus();
+        });
+        teacherList.appendChild(card);
+      });
+
+      if (visibleTutors.length === 0) {
+        teacherList.textContent = translate('noTutors');
+      }
+    }
+
+    function appendLessonCard(container, booking, isTeacherView) {
+      const tutor = tutors.find(function (item) {
+        return item.id === booking.tutorId;
+      });
+      const card = document.createElement('article');
+      card.className = 'lesson-card';
+      const heading = document.createElement('h3');
+      heading.textContent = tutor ? tutor.name + ' · ' + localizedSubject(booking.subject) : translate('lessonRequest');
+      card.appendChild(heading);
+
+      const detail = document.createElement('p');
+      const amount = isTeacherView ? booking.teacherPayout : booking.price;
+      const amountLabel = isTeacherView ? 'teacherEarnsAmount' : 'studentPriceAmount';
+      const statusKey = { pending: 'statusPending', accepted: 'statusAccepted', completed: 'statusCompleted' }[booking.status];
+      detail.textContent = (booking.grade ? localizedGrade(booking.grade) + ' · ' : '') +
+        new Date(booking.lessonTime).toLocaleString(languageLocales[currentLanguage]) + ' · ' +
+        translate(amountLabel, { amount: amount.toLocaleString(languageLocales[currentLanguage]) }) + ' · ' +
+        translate(statusKey || 'lessonRequest');
+      card.appendChild(detail);
+
+      if (isTeacherView) {
+        const student = document.createElement('p');
+        student.textContent = translate('studentName', { name: booking.studentEmail });
+        card.appendChild(student);
+      }
+
+      if (booking.status === 'pending' && isTeacherView) {
+        addLessonAction(card, translate('acceptRequest'), booking.id, 'accept');
+      } else if (booking.status === 'accepted') {
+        addLessonAction(card, translate('onlineClassroom'), booking.id, 'classroom');
+        if (isTeacherView) {
+          addLessonAction(card, translate('markComplete'), booking.id, 'complete');
+        }
+      } else if (booking.status === 'completed') {
+        const payment = document.createElement('p');
+        payment.className = 'muted';
+        payment.textContent = translate('completedEarning', {
+          amount: booking.teacherPayout.toLocaleString(languageLocales[currentLanguage]),
+          profit: (booking.platformShare ?? platformShare).toLocaleString(languageLocales[currentLanguage])
+        });
+        card.appendChild(payment);
+      }
+
+      container.appendChild(card);
+    }
+
+    function addLessonAction(card, label, bookingId, action) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'action-button';
+      button.textContent = label;
+      button.addEventListener('click', function () {
+        if (action === 'classroom') {
+          openClassroom(bookingId);
+          return;
+        }
+        updateBooking(bookingId, action);
+      });
+      card.appendChild(button);
+    }
+
+    function chatStorageKey(bookingId) {
+      return 'studentTutorialChat:' + bookingId;
+    }
+
+    function renderChat() {
+      chatMessages.replaceChildren();
+      const savedMessages = localStorage.getItem(chatStorageKey(activeClassroomBookingId));
+      const messages = savedMessages ? JSON.parse(savedMessages) : [];
+      if (messages.length === 0) {
+        const emptyMessage = document.createElement('p');
+        emptyMessage.className = 'chat-empty';
+        emptyMessage.textContent = translate('noMessages');
+        chatMessages.appendChild(emptyMessage);
+      } else {
+        messages.forEach(function (message) {
+          const messageElement = document.createElement('article');
+          messageElement.className = 'chat-message' + (message.role === chatRole.value ? ' chat-message--self' : '');
+          const author = document.createElement('strong');
+          author.textContent = message.role === 'teacher' ? translate('teacher') : translate('student');
+          const timestamp = document.createElement('time');
+          timestamp.dateTime = message.sentAt;
+          timestamp.textContent = new Date(message.sentAt).toLocaleString(languageLocales[currentLanguage]);
+          const body = document.createElement('div');
+          body.textContent = message.text;
+          messageElement.append(author, timestamp, body);
+          chatMessages.appendChild(messageElement);
+        });
+      }
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function openClassroom(bookingId) {
+      const booking = getBookings().find(function (item) {
+        return item.id === bookingId && item.status === 'accepted';
+      });
+      if (!booking) {
+        alert(translate('errClassroom'));
+        return;
+      }
+
+      activeClassroomBookingId = bookingId;
+      updateClassroomDetails(bookingId);
+      classroom.hidden = false;
+      classroomEmpty.hidden = true;
+      renderChat();
+      document.querySelector('[data-view="classroom"]').click();
+    }
+
+    function updateClassroomDetails(bookingId) {
+      const booking = getBookings().find(function (item) {
+        return item.id === bookingId;
+      });
+      if (!booking) {
+        return;
+      }
+      const tutor = tutors.find(function (item) {
+        return item.id === booking.tutorId;
+      });
+      classroomTitle.textContent = (tutor ? tutor.name : translate('teacher')) + ' · ' + localizedGrade(booking.grade) + ' ' + localizedSubject(booking.subject);
+      chatParticipant.textContent = (tutor ? tutor.name : translate('teacher')) + ' · ' + localizedSubject(booking.subject);
+    }
+
+    function stopCameraPreview() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(function (track) {
+          track.stop();
+        });
+        cameraStream = null;
+      }
+      cameraPreview.srcObject = null;
+      cameraPreview.hidden = true;
+      startCameraButton.disabled = false;
+      stopCameraButton.disabled = true;
+      cameraStatus.textContent = translate('cameraOffStatus');
+    }
+
+    function renderLessons() {
+      const bookings = getBookings();
+      const userBookings = bookings.filter(function (booking) {
+        return booking.studentEmail === signedInUser();
+      });
+      studentLessons.replaceChildren();
+      teacherLessons.replaceChildren();
+
+      if (userBookings.length === 0) {
+        studentLessons.textContent = translate('noStudentLessons');
+      } else {
+        userBookings.forEach(function (booking) {
+          appendLessonCard(studentLessons, booking, false);
+        });
+      }
+
+      if (bookings.length === 0) {
+        teacherLessons.textContent = translate('noTeacherLessons');
+      } else {
+        bookings.forEach(function (booking) {
+          appendLessonCard(teacherLessons, booking, true);
+        });
+      }
+    }
+
+    function renderManagedAccounts() {
+      if (!managedAccounts) {
+        return;
+      }
+      managedAccounts.replaceChildren();
+      const accounts = getManagedAccounts();
+      if (accounts.length === 0) {
+        managedAccounts.textContent = translate('noManagedAccounts');
+        return;
+      }
+
+      accounts.forEach(function (account) {
+        const card = document.createElement('article');
+        card.className = 'lesson-card';
+        const title = document.createElement('h3');
+        title.textContent = account.name + ' · ' + account.email;
+        const details = document.createElement('p');
+        const description = account.role === 'student'
+          ? localizedGrade(account.grade) + ' · ' + localizedSubject(account.subject)
+          : translate('teacherSubjects') + ': ' + localizedSubject(account.subject);
+        details.textContent = translate(account.active ? 'active' : 'inactive') + ' · ' +
+          translate(account.role) + ' · ' + description;
+        const editButton = document.createElement('button');
+        editButton.type = 'button';
+        editButton.className = 'action-button';
+        editButton.textContent = translate('editAccount');
+        editButton.addEventListener('click', function () {
+          editingAccountEmail = account.email;
+          accountNameInput.value = account.name;
+          accountEmailInput.value = account.email;
+          accountRoleSelect.value = account.role;
+          accountGradeInput.value = account.grade || '';
+          accountSubjectInput.value = account.subject;
+          setManagedAccountFields();
+          accountFormTitle.textContent = translate('editAccount');
+          cancelAccountEditButton.hidden = false;
+          accountNameInput.focus();
+        });
+        const statusButton = document.createElement('button');
+        statusButton.type = 'button';
+        statusButton.className = 'action-button';
+        statusButton.textContent = translate(account.active ? 'accountInactive' : 'accountActive');
+        statusButton.addEventListener('click', function () {
+          const currentAccounts = getManagedAccounts();
+          const currentAccount = currentAccounts.find(function (item) {
+            return item.email.toLowerCase() === account.email.toLowerCase();
+          });
+          if (!currentAccount) {
+            return;
+          }
+          currentAccount.active = !currentAccount.active;
+          saveManagedAccounts(currentAccounts);
+          renderManagedAccounts();
+        });
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.className = 'action-button';
+        deleteButton.style.background = '#65758b';
+        deleteButton.textContent = translate('deleteAccount');
+        deleteButton.addEventListener('click', function () {
+          if (!window.confirm(translate('deleteAccount') + ': ' + account.email + '?')) {
+            return;
+          }
+          saveManagedAccounts(getManagedAccounts().filter(function (item) {
+            return item.email.toLowerCase() !== account.email.toLowerCase();
+          }));
+          localStorage.removeItem(profileKeyForEmail(account.email));
+          if (editingAccountEmail && editingAccountEmail.toLowerCase() === account.email.toLowerCase()) {
+            resetAccountForm();
+          }
+          renderManagedAccounts();
+          alert(translate('accountDeleted'));
+        });
+        card.append(title, details, editButton, statusButton, deleteButton);
+        managedAccounts.appendChild(card);
+      });
+    }
+
+    function setManagedAccountFields() {
+      const isStudent = accountRoleSelect.value === 'student';
+      managedStudentFields.hidden = !isStudent;
+      accountGradeInput.required = isStudent;
+      accountSubjectLabel.dataset.i18n = isStudent ? 'subject' : 'teacherSubjects';
+      accountSubjectLabel.textContent = translate(accountSubjectLabel.dataset.i18n);
+    }
+
+    function resetAccountForm() {
+      accountForm.reset();
+      editingAccountEmail = null;
+      accountFormTitle.textContent = translate('addAccount');
+      cancelAccountEditButton.hidden = true;
+      setManagedAccountFields();
+    }
+
+    accountRoleSelect.addEventListener('change', setManagedAccountFields);
+    cancelAccountEditButton.addEventListener('click', resetAccountForm);
+    accountForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const name = accountNameInput.value.trim();
+      const email = accountEmailInput.value.trim();
+      const normalizedEmail = email.toLowerCase();
+      const role = accountRoleSelect.value;
+      const grade = accountGradeInput.value;
+      const subject = accountSubjectInput.value;
+      if (role === 'student' && (!grade || !subject)) {
+        alert(translate('accountMissing'));
+        return;
+      }
+      if (role === 'teacher' && !subject) {
+        alert(translate('accountTeacherSubjectMissing'));
+        return;
+      }
+
+      const accounts = getManagedAccounts();
+      const duplicate = accounts.some(function (account) {
+        return account.email.toLowerCase() === normalizedEmail &&
+          (!editingAccountEmail || account.email.toLowerCase() !== editingAccountEmail.toLowerCase());
+      });
+      if (duplicate) {
+        alert(translate('accountExists'));
+        return;
+      }
+
+      const existingAccount = editingAccountEmail
+        ? accounts.find(function (account) {
+          return account.email.toLowerCase() === editingAccountEmail.toLowerCase();
+        })
+        : null;
+      const updatedAccount = {
+        name: name,
+        email: email,
+        role: role,
+        grade: role === 'student' ? grade : '',
+        subject: subject,
+        active: existingAccount ? existingAccount.active !== false : true
+      };
+      const updatedAccounts = accounts.filter(function (account) {
+        return !editingAccountEmail || account.email.toLowerCase() !== editingAccountEmail.toLowerCase();
+      });
+      updatedAccounts.push(updatedAccount);
+      saveManagedAccounts(updatedAccounts);
+      if (editingAccountEmail && editingAccountEmail.toLowerCase() !== normalizedEmail) {
+        localStorage.removeItem(profileKeyForEmail(editingAccountEmail));
+      }
+      if (role === 'student') {
+        localStorage.setItem(profileKeyForEmail(email), JSON.stringify({ grade: grade, subject: subject }));
+      } else {
+        localStorage.removeItem(profileKeyForEmail(email));
+      }
+      resetAccountForm();
+      renderManagedAccounts();
+      alert(translate('accountSaved'));
+    });
+
+    loginRoleSelect.addEventListener('change', function () {
+      phoneLoginFields.hidden = loginRoleSelect.value === 'admin';
+    });
+    phoneLoginFields.hidden = loginRoleSelect.value === 'admin';
+
+    function updateBooking(bookingId, action) {
+      const bookings = getBookings();
+      const booking = bookings.find(function (item) {
+        return item.id === bookingId;
+      });
+      if (!booking) {
+        alert(translate('errBookingMissing'));
+        return;
+      }
+
+      if (action === 'accept' && booking.status === 'pending') {
+        booking.status = 'accepted';
+        booking.statusLabel = translate('statusAccepted');
+      } else if (action === 'complete' && booking.status === 'accepted') {
+        booking.status = 'completed';
+        booking.statusLabel = translate('statusCompleted');
+      } else {
+        alert(translate('errBookingChanged'));
+        return;
+      }
+
+      saveBookings(bookings);
+      renderLessons();
+      if (activeClassroomBookingId === bookingId && action === 'complete') {
+        stopCameraPreview();
+        activeClassroomBookingId = null;
+        classroom.hidden = true;
+        classroomEmpty.hidden = false;
+        document.querySelector('[data-view="teacher"]').click();
+      }
+    }
+
+    addStudentButton.addEventListener('click', function () {
+      const profile = getStudentProfile();
+      if (profile) {
+        studentGradeInput.value = profile.grade;
+        studentSubjectInput.value = profile.subject;
+        studentSubjectInput.disabled = false;
+      }
+      studentForm.hidden = false;
+      studentGradeInput.focus();
+    });
+
+    studentGradeInput.addEventListener('change', function () {
+      studentSubjectInput.disabled = !studentGradeInput.value;
+      studentSubjectInput.value = '';
+    });
+
+    studentForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const grade = studentGradeInput.value;
+      const subject = studentSubjectInput.value;
+      if (!grade || !subject) {
+        alert(translate('errProfile'));
+        return;
+      }
+
+      localStorage.setItem(studentProfileKey(), JSON.stringify({ grade: grade, subject: subject }));
+      renderStudentProfile();
+      renderTutors();
+      studentForm.hidden = true;
+      alert(translate('savedStudent', {
+        grade: localizedGrade(grade),
+        subject: localizedSubject(subject)
+      }));
+    });
+
+    document.querySelectorAll('.dashboard-nav button').forEach(function (button) {
+      button.addEventListener('click', function () {
+        const selectedView = button.dataset.view;
+        if (selectedView !== 'classroom' && cameraStream) {
+          stopCameraPreview();
+        }
+        document.querySelectorAll('.dashboard-nav button').forEach(function (navButton) {
+          navButton.setAttribute('aria-pressed', String(navButton === button));
+        });
+        document.getElementById('find-section').hidden = selectedView !== 'find';
+        document.getElementById('student-section').hidden = selectedView !== 'student';
+        document.getElementById('teacher-section').hidden = selectedView !== 'teacher';
+        document.getElementById('classroom-section').hidden = selectedView !== 'classroom';
+        document.getElementById('admin-section').hidden = selectedView !== 'admin';
+      });
+    });
+
+    bookingForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const lessonTime = new Date(lessonTimeInput.value);
+      if (!selectedTutorId || !lessonTimeInput.value || Number.isNaN(lessonTime.getTime()) || lessonTime <= new Date()) {
+        alert(translate('errBookingTime'));
+        return;
+      }
+
+      const tutor = tutors.find(function (item) {
+        return item.id === selectedTutorId;
+      });
+      const profile = getStudentProfile();
+      if (!tutor || !profile || !tutor.subjects.includes(lessonSubjectInput.value) || profile.subject !== lessonSubjectInput.value) {
+        alert(translate('errBookingSubject'));
+        return;
+      }
+      const bookings = getBookings();
+      bookings.push({
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+        tutorId: selectedTutorId,
+        subject: lessonSubjectInput.value,
+        grade: profile.grade,
+        studentEmail: signedInUser(),
+        lessonTime: lessonTime.toISOString(),
+        price: lessonPrice,
+        teacherPayout: teacherPayout,
+        platformShare: platformShare,
+        currency: 'ETB',
+        status: 'pending',
+        statusLabel: translate('statusPending')
+      });
+      saveBookings(bookings);
+      bookingForm.reset();
+      bookingForm.hidden = true;
+      selectedTutorId = null;
+      renderLessons();
+      alert(translate('bookingSaved'));
+      document.querySelector('[data-view="student"]').click();
+    });
+
+    document.getElementById('cancel-booking').addEventListener('click', function () {
+      bookingForm.reset();
+      bookingForm.hidden = true;
+      selectedTutorId = null;
+    });
+
+    chatForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const messageText = chatInput.value.trim();
+      if (!activeClassroomBookingId || !messageText) {
+        return;
+      }
+
+      const key = chatStorageKey(activeClassroomBookingId);
+      const savedMessages = localStorage.getItem(key);
+      const messages = savedMessages ? JSON.parse(savedMessages) : [];
+      messages.push({
+        role: chatRole.value,
+        text: messageText,
+        sentAt: new Date().toISOString()
+      });
+      localStorage.setItem(key, JSON.stringify(messages));
+      chatInput.value = '';
+      renderChat();
+      chatInput.focus();
+    });
+
+    chatRole.addEventListener('change', renderChat);
+
+    startCameraButton.addEventListener('click', async function () {
+      if (!activeClassroomBookingId) {
+        cameraStatus.textContent = translate('openAcceptedLesson');
+        return;
+      }
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        cameraStatus.textContent = translate('cameraUnavailable');
+        return;
+      }
+
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        cameraPreview.srcObject = cameraStream;
+        cameraPreview.hidden = false;
+        startCameraButton.disabled = true;
+        stopCameraButton.disabled = false;
+        cameraStatus.textContent = translate('cameraLocalOn');
+      } catch (error) {
+        cameraStatus.textContent = error.name === 'NotAllowedError'
+          ? translate('cameraPermissionDenied')
+          : translate('cameraStartError');
+      }
+    });
+
+    stopCameraButton.addEventListener('click', stopCameraPreview);
+
+    signinBtn.addEventListener('click', function () {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      const phone = phoneInput.value.trim();
+      const role = loginRoleSelect.value;
+
+      if (!email || !password) {
+        alert(translate('errCredentials'));
+        return;
+      }
+
+      if (role === 'admin' && email.trim().toLowerCase() !== adminEmail) {
+        alert(translate('adminEmailOnly'));
+        return;
+      }
+
+      let accountName = email;
+      if (role !== 'admin') {
+        const account = getManagedAccounts().find(function (item) {
+          return item.email.toLowerCase() === email.toLowerCase() &&
+            item.role === role && item.active !== false;
+        });
+        if (!account) {
+          alert(translate('errAccountSignIn'));
+          return;
+        }
+        accountName = account.name;
+        if (!phone) {
+          alert(translate('errPhone'));
+          return;
+        }
+      }
+
+      setSignedInUser(email, role);
+      if (role !== 'admin') {
+        localStorage.setItem('studentTutorialPhone', phone);
+      }
+      loginForm.style.display = 'none';
+      appContent.style.display = 'block';
+      welcomeMessage.textContent = translate('welcome', { name: accountName });
+      renderStudentProfile();
+      renderTutors();
+      renderLessons();
+      renderManagedAccounts();
+      showDashboardForRole(role);
+      if (role !== 'admin') {
+        sendSmsMessage(phone);
+      }
+    });
+
+    if (signoutBtn) {
+      signoutBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+        signOut();
+      });
+    }
+
+    if (forgotPasswordBtn) {
+      forgotPasswordBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+        alert(translate('forgotUnavailable'));
+      });
+    }
+
+    languageSelect.addEventListener('change', function () {
+        currentLanguage = languageSelect.value;
+        localStorage.setItem('studentTutorialLanguage', currentLanguage);
+        applyTranslations();
+    });
+
+    applyTranslations();
+  </script>
+</body>
+</html>

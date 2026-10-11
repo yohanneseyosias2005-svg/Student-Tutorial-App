@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geography - Student Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f3f7ff; color: #1d2433; margin: 0; padding: 24px; }
+    main { max-width: 900px; margin: 0 auto; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    h1, h2, h3 { color: #174ea6; }
+    p, li { line-height: 1.7; }
+    .quiz-box { margin-top: 24px; padding: 20px; border: 1px solid #d8e7ff; border-radius: 12px; background: #f7faff; }
+    .quiz-option { display: block; width: 100%; margin: 10px 0; padding: 12px; border: 1px solid #cfe1ff; border-radius: 8px; background: white; text-align: left; font-size: 1rem; cursor: pointer; }
+    .quiz-option:disabled { cursor: default; }
+    .correct { background: #dff7e8; }
+    .incorrect { background: #ffe3e3; }
+    #quiz-feedback { min-height: 24px; font-weight: bold; }
+    a { color: #2563eb; }
+    @media (max-width: 600px) { body { padding: 12px; } main { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Geography</h1>
+    <h2>What is geography?</h2>
+    <p>Geography is the study of places, people, environments, and the relationships between them. It helps us understand where things are and how physical and human features shape everyday life.</p>
+    <h2>Maps and location</h2>
+    <p>Maps represent places and help us find locations. A map key explains symbols, a scale compares map distance with real distance, and directions such as north, south, east, and west help describe location.</p>
+    <h2>Physical and human features</h2>
+    <p>Mountains, rivers, plains, and climate are physical features. Roads, farms, towns, and settlements are human features. People depend on and change their environments, so responsible use of resources matters.</p>
+    <h2>Key ideas</h2>
+    <ul>
+      <li>Physical geography studies natural features and processes.</li>
+      <li>Human geography studies people, places, and activities.</li>
+      <li>Maps use symbols and scale to communicate information about places.</li>
+    </ul>
+    <h2>Practice</h2>
+    <p>Look at a map of your area. Use its key to identify two features, then describe where one is in relation to the other using compass directions.</p>
+    <section id="quiz" class="quiz-box" aria-labelledby="quiz-title">
+      <h2 id="quiz-title">Geography Quick Quiz</h2>
+      <p id="quiz-progress" aria-live="polite"></p>
+      <h3 id="quiz-question"></h3>
+      <div id="quiz-options"></div>
+      <p id="quiz-feedback" aria-live="polite"></p>
+    </section>
+    <p><a href="index.html">Back to Home</a></p>
+  </main>
+  <script>
+    (function () {
+      const questions = [
+        { question: 'What does geography study?', options: ['Only historical dates', 'Places, people, and environments', 'Only numbers', 'Stories from the future'], answer: 1 },
+        { question: 'What does a map key explain?', options: ['The map symbols', 'The weather next year', 'The age of a map reader', 'The time of day'], answer: 0 },
+        { question: 'Which is a physical feature?', options: ['A road', 'A town', 'A river', 'A farm'], answer: 2 },
+        { question: 'What does map scale compare?', options: ['Map distance and real distance', 'Two climates', 'Population and rainfall', 'North and south'], answer: 0 }
+      ];
+      let currentQuestion = 0;
+      let score = 0;
+      const progress = document.getElementById('quiz-progress');
+      const question = document.getElementById('quiz-question');
+      const options = document.getElementById('quiz-options');
+      const feedback = document.getElementById('quiz-feedback');
+
+      function renderQuestion() {
+        if (currentQuestion === questions.length) {
+          progress.textContent = 'Quiz complete';
+          question.textContent = 'You scored ' + score + ' out of ' + questions.length + '.';
+          options.replaceChildren();
+          feedback.textContent = '';
+          return;
+        }
+        const item = questions[currentQuestion];
+        progress.textContent = 'Question ' + (currentQuestion + 1) + ' of ' + questions.length;
+        question.textContent = item.question;
+        feedback.textContent = '';
+        options.replaceChildren();
+        item.options.forEach(function (option, index) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'quiz-option';
+          button.textContent = option;
+          button.addEventListener('click', function () {
+            const correct = index === item.answer;
+            if (correct) score += 1;
+            button.classList.add(correct ? 'correct' : 'incorrect');
+            feedback.textContent = correct ? 'Correct!' : 'Not quite. The correct answer is: ' + item.options[item.answer];
+            options.querySelectorAll('button').forEach(function (itemButton) { itemButton.disabled = true; });
+            currentQuestion += 1;
+            window.setTimeout(renderQuestion, 900);
+          });
+          options.appendChild(button);
+        });
+      }
+      renderQuestion();
+    }());
+  </script>
+</body>
+</html>
